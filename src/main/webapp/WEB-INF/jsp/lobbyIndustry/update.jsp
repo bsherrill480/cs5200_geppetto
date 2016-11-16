@@ -9,10 +9,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
-        <title>Title</title>
+        <title>Update Lobby Industry</title>
     </head>
     <body>
-    <h1>Update</h1>
+    <h1>Update Lobby Industry</h1>
         <form method="post">
             <label>client</label>
             <input type="text" value="<c:out value="${lobbyIndustry.getClient()}" />"

@@ -9,16 +9,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
-        <title>Title</title>
+        <title>Delete Lobby Industry</title>
     </head>
     <body>
+    <h1>Delete Lobby Industry</h1>
         <form method="post">
-            <label>client: </label> <c:out value="${lobbyIndustry.getClient()}"/>
-            <label>sub</label> <c:out value="${lobbyIndustry.getSub()}" />"
-            <label>total</label> <c:out value="${lobbyIndustry.getTotal()}" />
-            <label>year</label> <c:out value="${lobbyIndustry.getYear()}" />
-            <label>catcode</label> <c:out value="${lobbyIndustry.getCatcode()}"/>
-            <button type="submit">Update</button>
+            <ul>
+                <li>client: <c:out value="${lobbyIndustry.getClient()}"/></li>
+                <li>sub: <c:out value="${lobbyIndustry.getSub()}" />"</li>
+                <li>total: <c:out value="${lobbyIndustry.getTotal()}" /></li>
+                <li>year: <c:out value="${lobbyIndustry.getYear()}" /></li>
+                <li>catcode: <c:out value="${lobbyIndustry.getCatcode()}"/></li>
+            </ul>
+            <button type="submit">Delete</button>
         </form>
     </body>
 </html>

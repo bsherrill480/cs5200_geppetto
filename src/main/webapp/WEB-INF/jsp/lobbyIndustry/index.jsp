@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
     <head>
-        <title>Title</title>
+        <title>Lobby Industries</title>
     </head>
     <body>
         <h1>Lobby Industries</h1>
@@ -18,6 +18,9 @@
             <input name="client" type="text" value="<c:out value="${client}" />">
             <button type="submit">Go</button>
         </form>
+        <div>
+            <a href="/LobbyIndustries/create">Create New Lobby Industry</a>
+        </div>
         <div>
             <h3>Results:</h3>
             <table>
@@ -44,11 +47,17 @@
                                 <a href="/LobbyIndustries/update/client/<c:out
                                 value="${lobbyIndustry.getClient()}"/>/sub/<c:out
                                 value="${lobbyIndustry.getSub()}"/>/year/<c:out
-                                value="${lobbyIndustry.getYear()}"/>/">Update
+                                value="${lobbyIndustry.getYear()}"/>/">
+                                    Update
                                 </a>
                             </td>
                             <td>
-                                <a href="#">Delete</a>
+                                <a href="/LobbyIndustries/delete/client/<c:out
+                                value="${lobbyIndustry.getClient()}"/>/sub/<c:out
+                                value="${lobbyIndustry.getSub()}"/>/year/<c:out
+                                value="${lobbyIndustry.getYear()}"/>/">
+                                   Delete
+                                </a>
                             </td>
                         </tr>
                     </c:forEach>

@@ -16,15 +16,10 @@
 
 package cs5200.geppetto.controllers;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import cs5200.geppetto.dao.*;
-import cs5200.geppetto.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,12 +42,9 @@ public class WelcomeController {
 		log.info("===========");
         log.info("Hello World");
 		log.info("===========");
-//		List<LobbyIndustry> exampleLobbyIndustries= lobbyIndustryDao.getByClient("1-800 Contacts");
-//		log.info(exampleLobbyIndustries);
-//		model.put("exampleList", exampleLobbyIndustries);
-		model.put("time", new Date());
-		model.put("message", this.message);
-
+		List<String> pages = new ArrayList<String>();
+        pages.add(LobbyingIndustriesController.baseUrl);
+		model.put("pages", pages);
 		return "welcome";
 	}
 }

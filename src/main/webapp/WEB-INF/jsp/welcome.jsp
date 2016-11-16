@@ -6,13 +6,14 @@
 <html lang="en">
 
 <body>
-	<c:url value="/resources/text.txt" var="url"/>
-	<spring:url value="/resources/text.txt" htmlEscape="true" var="springUrl" />
-	Spring URL: ${springUrl} at ${time}
-	<br>
-	JSTL URL: ${url}
-	<br>
-	Message: ${message}
+	Pages:
+    <ol>
+        <c:forEach items="${pages}" var="page" >
+            <li>
+                <a href="<c:out value="${page}"/>"><c:out value="${page}"/></a>
+            </li>
+        </c:forEach>
+    </ol>
 </body>
 
 </html>
