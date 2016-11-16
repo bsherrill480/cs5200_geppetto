@@ -4,11 +4,8 @@ import cs5200.geppetto.dao.LobbyIndustryDao;
 import cs5200.geppetto.model.LobbyIndustry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import org.apache.log4j.Logger;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Map;
@@ -21,7 +18,8 @@ public class LobbyingIndustriesController {
 	private LobbyIndustryDao lobbyIndustryDao;
 
     @GetMapping("/LobbyIndustries")
-	public String index(Map<String, Object> model, @RequestParam("client") String client) {
+	public String index(Map<String, Object> model,
+						@RequestParam(value = "client", defaultValue = "") String client) {
 		List<LobbyIndustry> lobbyIndustries = lobbyIndustryDao.getByClient(client);
 		model.put("lobbyIndustries", lobbyIndustries);
 		model.put("client", client);
@@ -44,22 +42,22 @@ public class LobbyingIndustriesController {
 		return "lobbyIndustry/update";
 	}
 
-	@PostMapping("/LobbyIndustries/doUpdate")
+	@PostMapping("/LobbyIndustries/update/client/{client}/sub/{sub}/year/{year}/")
 	public String doUpdate(Map<String, Object> model,
 						   @RequestParam("client") String client,
 						   @RequestParam("sub") String sub,
 						   @RequestParam("year") String year,
 						   @RequestParam("total") float total,
 						   @RequestParam("catcode") String catcode) {
-        LobbyIndustry lobbyIndustry = lobbyIndustryDao.get(new LobbyIndustry(
-        		client,
+		LobbyIndustry updatedLobbyIndustry = new LobbyIndustry(
+				client,
 				sub,
-				0.0f,
+				total,
 				year,
-				""
-		));
+				catcode
+		);
+		LobbyIndustry lobbyIndustry = lobbyIndustryDao.update(updatedLobbyIndustry);
 		model.put("lobbyIndustry", lobbyIndustry);
-		model.put("client", client);
-		return "lobbyIndustry/index";
+		return "lobbyIndustry/update";
 	}
 }

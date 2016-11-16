@@ -8,23 +8,27 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-    <title>Title</title>
-</head>
-<body>
+    <head>
+        <title>Title</title>
+    </head>
+    <body>
     <h1>Update</h1>
-    <form action="/LobbyIndustries/doUpdate" method="post">
-        <label>client</label>
-        <input name="client" type="text" value="<c:out value="${lobbyIndustry.getClient()}" />"
-               disabled>
-        <label>sub</label>
-        <input name="sub" type="text" value="<c:out value="${lobbyIndustry.getSub()}" />" disabled>
-        <label>total</label>
-        <input name="total" type="text" value="<c:out value="${lobbyIndustry.getTotal()}" />">
-        <label>year</label>
-        <input name="year" type="text" value="<c:out value="${lobbyIndustry.getYear()}" />" disabled>
-        <label>catcode</label>
-        <input name="catcode" type="text" value="<c:out value="${lobbyIndustry.getCatcode()}" />">
-    </form>
-</body>
+        <form method="post">
+            <label>client</label>
+            <input type="text" value="<c:out value="${lobbyIndustry.getClient()}" />"
+                   disabled>
+            <input type="hidden" name="client" value="<c:out value="${lobbyIndustry.getClient()}"/>">
+            <label>sub</label>
+            <input type="text" value="<c:out value="${lobbyIndustry.getSub()}" />" disabled>
+            <input type="hidden" name="sub" value="<c:out value="${lobbyIndustry.getSub()}"/>">
+            <label>total</label>
+            <input name="total" type="text" value="<c:out value="${lobbyIndustry.getTotal()}" />">
+            <label>year</label>
+            <input type="text" value="<c:out value="${lobbyIndustry.getYear()}" />" disabled>
+            <input type="hidden" name="year" value="<c:out value="${lobbyIndustry.getYear()}"/>">
+            <label>catcode</label>
+            <input name="catcode" type="text" value="<c:out value="${lobbyIndustry.getCatcode()}" />">
+            <button type="submit">Update</button>
+        </form>
+    </body>
 </html>
