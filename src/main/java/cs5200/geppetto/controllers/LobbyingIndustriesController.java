@@ -14,7 +14,7 @@ import java.util.Map;
 
 
 @Controller
-public class LobbyingIndustriesController {
+public clasLobbyingIndustriesController {
 	static Logger log = Logger.getLogger(WelcomeController.class.getName());
 
 	private static final String clientSubYearPathVariables =
