@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
+      <module fileurl="file://$PROJECT_DIR$/DBMS_Assignment.iml" filepath="$PROJECT_DIR$/DBMS_Assignment.iml" />
+=======
       <module fileurl="file://$PROJECT_DIR$/spring-boot-sample-tomcat7-jsp.iml" filepath="$PROJECT_DIR$/spring-boot-sample-tomcat7-jsp.iml" />
+>>>>>>> e3c7d2c601476b3f82e8da5eea87ea252bdbefef
     </modules>
   </component>
 </project>
