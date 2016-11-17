@@ -14,6 +14,21 @@ public class PacToCandidateDonation {
   private String di;
   private String fecCandId;
 
+  public PacToCandidateDonation(String cycle, String fecRecNo, String cid, String pacId,
+      float amount, Date date, String realCode, String type, String di, String fecCandId) {
+    super();
+    this.cycle = cycle;
+    this.fecRecNo = fecRecNo;
+    this.cid = cid;
+    this.pacId = pacId;
+    this.amount = amount;
+    this.date = date;
+    this.realCode = realCode;
+    this.type = type;
+    this.di = di;
+    this.fecCandId = fecCandId;
+  }
+
   /**
    * @return the cycle
    */
