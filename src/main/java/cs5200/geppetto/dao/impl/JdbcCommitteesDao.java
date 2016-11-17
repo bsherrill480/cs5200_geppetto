@@ -29,7 +29,7 @@ public class JdbcCommitteesDao extends MyJdbcDaoSupport implements
 						conn = getConnection();
 						PreparedStatement ps = conn.prepareStatement(sql);
 						ps.setString(1, committees.getCycle());
-						ps.setString(2, committees.getCmteld());
+						ps.setString(2, committees.getCmteId());
 						ps.setString(3, committees.getPACShort());
 						ps.setString(4, committees.getAffiliate());
 						ps.setString(5, committees.getUltorg());
@@ -117,7 +117,7 @@ public class JdbcCommitteesDao extends MyJdbcDaoSupport implements
 				try {
 						conn = getConnection();
 						PreparedStatement ps = conn.prepareStatement(sql);
-						ps.setString(1, committeesGetter.getCmteld());
+						ps.setString(1, committeesGetter.getCmteId());
 						ResultSet rs = ps.executeQuery();
 						Committees committees = null;
 						if(rs.next()) {
@@ -162,7 +162,7 @@ public class JdbcCommitteesDao extends MyJdbcDaoSupport implements
 						conn = getConnection();
 						PreparedStatement ps = conn.prepareStatement(sql);
 						ps.setString(1, committees.getCycle());
-						ps.setString(2, committees.getCmteld());
+						ps.setString(2, committees.getCmteId());
 						ps.setString(3, committees.getPACShort());
 						ps.setString(4, committees.getAffiliate());
 						ps.setString(5, committees.getUltorg());
@@ -198,7 +198,7 @@ public class JdbcCommitteesDao extends MyJdbcDaoSupport implements
 				try {
 						conn = getConnection();
 						PreparedStatement ps = conn.prepareStatement(sql);
-						ps.setString(1, committees.getCmteld());
+						ps.setString(1, committees.getCmteId());
 						ps.executeUpdate();
 						ps.close();
 				} catch (SQLException e) {
