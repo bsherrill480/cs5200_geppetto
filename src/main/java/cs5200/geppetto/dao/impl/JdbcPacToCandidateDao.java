@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import cs5200.geppetto.dao.CandidateDao;
 import cs5200.geppetto.dao.CommitteesDao;
 import cs5200.geppetto.dao.PacToCandidateDao;
+import cs5200.geppetto.model.Candidate;
+import cs5200.geppetto.model.Committees;
 import cs5200.geppetto.model.PacToCandidateDonation;
 
 /**
@@ -111,6 +113,78 @@ public class JdbcPacToCandidateDao extends MyJdbcDaoSupport implements PacToCand
       }
     }
     return donationsToCandidate;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public List<PacToCandidateDonation> getDonationsFromCommittee(Committees committee)
+      throws SQLException {
+    List<PacToCandidateDonation> donations = new ArrayList<PacToCandidateDonation>();
+    String getDonationsFromCommittee = "SELECT * FROM PACsToCand16 WHERE PACID=?;";
+    Connection connection = null;
+    PreparedStatement selectStmt = null;
+    ResultSet results = null;
+    try {
+      connection = getConnection();
+      selectStmt = connection.prepareStatement(getDonationsFromCommittee);
+      selectStmt.setString(1, committee.getCmteId());
+      results = selectStmt.executeQuery();
+      while (results.next()) {
+        donations.add(parseDonation(results));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if (connection != null) {
+        connection.close();
+      }
+      if (selectStmt != null) {
+        selectStmt.close();
+      }
+      if (results != null) {
+        results.close();
+      }
+    }
+    return donations;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public List<PacToCandidateDonation> getDonationsToCandidate(Candidate candidate)
+      throws SQLException {
+    List<PacToCandidateDonation> donations = new ArrayList<PacToCandidateDonation>();
+    String getDonationsToCandidate = "SELECT * FROM PACsToCand16 WHERE CID=?;";
+    Connection connection = null;
+    PreparedStatement selectStmt = null;
+    ResultSet results = null;
+    try {
+      connection = getConnection();
+      selectStmt = connection.prepareStatement(getDonationsToCandidate);
+      selectStmt.setString(1, candidate.getCid());
+      results = selectStmt.executeQuery();
+      while (results.next()) {
+        donations.add(parseDonation(results));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if (connection != null) {
+        connection.close();
+      }
+      if (selectStmt != null) {
+        selectStmt.close();
+      }
+      if (results != null) {
+        results.close();
+      }
+    }
+    return donations;
   }
 
   /**
