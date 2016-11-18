@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,11 +30,14 @@ public class JdbcPacToCandidateDao extends MyJdbcDaoSupport implements PacToCand
     Connection connection = null;
     PreparedStatement insertStmt = null;
     ResultSet resultKey = null;
+    // generate 19 random numbers between 0-9 to build FECRecNo
+    // WARN: potential for collisions
+    String FECRecNo = randNumId(10, 19);
     try {
       connection = getConnection();
-      insertStmt = connection.prepareStatement(insertDonation, Statement.RETURN_GENERATED_KEYS);
+      insertStmt = connection.prepareStatement(insertDonation);
       insertStmt.setString(1, donation.getCycle());
-      insertStmt.setString(2, donation.getFecRecNo());
+      insertStmt.setString(2, FECRecNo);
       insertStmt.setString(3, donation.getPacId());
       insertStmt.setString(4, donation.getCid());
       insertStmt.setFloat(5, donation.getAmount());
@@ -46,17 +48,7 @@ public class JdbcPacToCandidateDao extends MyJdbcDaoSupport implements PacToCand
       insertStmt.setString(10, donation.getFecCandId());
       insertStmt.executeUpdate();
 
-      // Retrieve the auto-generated key and set it, so it can be used by the caller.
-      // For more details, see:
-      // http://dev.mysql.com/doc/connector-j/en/connector-j-usagenotes-last-insert-id.html
-      resultKey = insertStmt.getGeneratedKeys();
-      int recNo = -1;
-      if (resultKey.next()) {
-        recNo = resultKey.getInt(1);
-      } else {
-        throw new SQLException("Unable to retrieve auto-generated key.");
-      }
-      donation.setFecRecNo(Integer.toString(recNo));
+      donation.setFecRecNo(FECRecNo);
       return donation;
     } catch (SQLException e) {
       e.printStackTrace();
