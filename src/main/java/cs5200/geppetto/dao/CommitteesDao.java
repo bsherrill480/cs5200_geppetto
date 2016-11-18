@@ -12,11 +12,9 @@ public interface CommitteesDao {
 
   Committees create(Committees committees);
 
-  List<Committees> getByClient(String client); // read
+  Committees getCommitteeByCmteId(String cmteId) throws SQLException; // read
 
   List<Committees> getCommitteesByCycle(String cycle) throws SQLException;
-
-  Committees get(Committees committees); // read
 
   Committees update(Committees committees);
 

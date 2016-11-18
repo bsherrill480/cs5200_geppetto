@@ -89,79 +89,42 @@ public class JdbcCommitteesDao extends MyJdbcDaoSupport implements CommitteesDao
     return committees;
   }
 
-
-
   @Override
-  public List<Committees> getByClient(String client) {
+  public Committees getCommitteeByCmteId(String cmteId) throws SQLException {
+    String getCommitteeByCmteId = "SELECT * FROM Cmtes16 WHERE CmteID=?;";
+    Connection connection = null;
+    PreparedStatement selectStmt = null;
+    ResultSet results = null;
+    try {
+      connection = getConnection();
+      selectStmt = connection.prepareStatement(getCommitteeByCmteId);
+      selectStmt.setString(1, cmteId);
+      results = selectStmt.executeQuery();
+      if (results.next()) {
+        return parseCommittees(results);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if (connection != null) {
+        connection.close();
+      }
+      if (selectStmt != null) {
+        selectStmt.close();
+      }
+      if (results != null) {
+        results.close();
+      }
+    }
     return null;
-  }
-
-  // @Override
-  public List<Committees> getByUniqueId(String Id) {
-    String sql = "SELECT * FROM Cmtes16 WHERE Cmteld = ?";
-
-    Connection conn = null;
-
-    try {
-      conn = getConnection();
-      PreparedStatement ps = conn.prepareStatement(sql);
-      ps.setString(1, Id);
-      ResultSet rs = ps.executeQuery();
-      List<Committees> committees = new ArrayList<Committees>();
-      while (rs.next()) {
-        Committees committees1 = parseCommittees(rs);
-        committees.add(committees1);
-      }
-      rs.close();
-      ps.close();
-      return committees;
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    } finally {
-      if (conn != null) {
-        try {
-          conn.close();
-        } catch (SQLException e) {
-        }
-      }
-    }
-  }
-
-  @Override
-  public Committees get(Committees committeesGetter) {
-    String sql = "SELECT * FROM Cmtes16 WHERE CmteId = ?";
-
-    Connection conn = null;
-
-    try {
-      conn = getConnection();
-      PreparedStatement ps = conn.prepareStatement(sql);
-      ps.setString(1, committeesGetter.getCmteId());
-      ResultSet rs = ps.executeQuery();
-      Committees committees = null;
-      if (rs.next()) {
-        committees = parseCommittees(rs);
-      }
-      rs.close();
-      ps.close();
-      return committees;
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    } finally {
-      if (conn != null) {
-        try {
-          conn.close();
-        } catch (SQLException e) {
-        }
-      }
-    }
   }
 
   @Override
   public Committees update(Committees committees) {
     String sql =
-        "UPDATE Cmtes16 SET Cycle = ? AND CmteId = ? AND PACShort = ? AND Affiliate = ? AND Ultorg = ?"
-            + "AND RecipId = ? AND RecipCode = ? AND FECCandId = ? AND Party = ? AND PrimCode = ? AND Source = ?"
+        "UPDATE Cmtes16 SET Cycle = ? AND CmteID = ? AND PACShort = ? AND Affiliate = ? AND Ultorg = ?"
+            + "AND RecipID = ? AND RecipCode = ? AND FECCandID = ? AND Party = ? AND PrimCode = ? AND Source = ?"
             + "AND Sensitive = ? AND test = ? AND test = ?"; // todo
     Connection conn = null;
     try {
@@ -198,7 +161,7 @@ public class JdbcCommitteesDao extends MyJdbcDaoSupport implements CommitteesDao
 
   @Override
   public void delete(Committees committees) {
-    String sql = "DELETE FROM Cmtes16 WHERE CmteId = ?";
+    String sql = "DELETE FROM Cmtes16 WHERE CmteID = ?";
 
     Connection conn = null;
 
@@ -228,9 +191,9 @@ public class JdbcCommitteesDao extends MyJdbcDaoSupport implements CommitteesDao
    * @throws SQLException
    */
   public Committees parseCommittees(ResultSet rs) throws SQLException {
-    return new Committees(rs.getString("Cycle"), rs.getString("CmteId"), rs.getString("PACShort"),
-        rs.getString("Affiliate"), rs.getString("Ultorg"), rs.getString("RecipId"),
-        rs.getString("RecipCode"), rs.getString("FECCandId"), rs.getString("Party"),
+    return new Committees(rs.getString("Cycle"), rs.getString("CmteID"), rs.getString("PACShort"),
+        rs.getString("Affiliate"), rs.getString("Ultorg"), rs.getString("RecipID"),
+        rs.getString("RecipCode"), rs.getString("FECCandID"), rs.getString("Party"),
         rs.getString("PrimCode"), rs.getString("Source"), rs.getString("Sensitive"),
         rs.getInt("Foreign"), rs.getInt("Active"));
   }
