@@ -46,6 +46,7 @@ public class WelcomeController {
     List<String> pages = new ArrayList<String>();
     pages.add(LobbyingIndustriesController.baseUrl);
     pages.add(CandidatesController.baseUrl);
+    pages.add(PacToCandidateController.baseUrl);
     model.put("pages", pages);
     return "welcome";
   }
