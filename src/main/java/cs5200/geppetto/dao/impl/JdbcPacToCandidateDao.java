@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cs5200.geppetto.dao.CandidateDao;
+import cs5200.geppetto.dao.CommitteesDao;
 import cs5200.geppetto.dao.PacToCandidateDao;
 import cs5200.geppetto.model.PacToCandidateDonation;
 
@@ -18,6 +21,12 @@ import cs5200.geppetto.model.PacToCandidateDonation;
  */
 @Service
 public class JdbcPacToCandidateDao extends MyJdbcDaoSupport implements PacToCandidateDao {
+
+  @Autowired
+  private CandidateDao candidateDao;
+
+  @Autowired
+  private CommitteesDao committeeDao;
 
   /**
    * {@inheritDoc}
@@ -33,13 +42,14 @@ public class JdbcPacToCandidateDao extends MyJdbcDaoSupport implements PacToCand
     // generate 19 random numbers between 0-9 to build FECRecNo
     // WARN: potential for collisions
     String FECRecNo = randNumId(10, 19);
+
     try {
       connection = getConnection();
       insertStmt = connection.prepareStatement(insertDonation);
       insertStmt.setString(1, donation.getCycle());
       insertStmt.setString(2, FECRecNo);
-      insertStmt.setString(3, donation.getPacId());
-      insertStmt.setString(4, donation.getCid());
+      insertStmt.setString(3, donation.getCommittee().getCmteId());
+      insertStmt.setString(4, donation.getCandidate().getCid());
       insertStmt.setFloat(5, donation.getAmount());
       insertStmt.setDate(6, new java.sql.Date(donation.getDate().getTime()));
       insertStmt.setString(7, donation.getRealCode());
@@ -175,7 +185,6 @@ public class JdbcPacToCandidateDao extends MyJdbcDaoSupport implements PacToCand
   private PacToCandidateDonation parseDonation(ResultSet results) throws SQLException {
     String resCycle = results.getString("Cycle");
     String resFECRecNo = results.getString("FECRecNo");
-    String resCID = results.getString("CID");
     String resPACID = results.getString("PACID");
     Float resAmount = results.getFloat("Amount");
     Date resDate = results.getDate("Date");
@@ -183,7 +192,9 @@ public class JdbcPacToCandidateDao extends MyJdbcDaoSupport implements PacToCand
     String resType = results.getString("Type");
     String resDI = results.getString("DI");
     String resFECCandID = results.getString("FECCandID");
-    return new PacToCandidateDonation(resCycle, resFECRecNo, resCID, resPACID, resAmount, resDate,
-        resRealCode, resType, resDI, resFECCandID);
+    return new PacToCandidateDonation(resCycle, resFECRecNo,
+        this.candidateDao.getCandidateByFECCandId(resFECCandID),
+        this.committeeDao.getCommitteeByCmteId(resPACID), resAmount, resDate, resRealCode, resType,
+        resDI, resFECCandID);
   }
 }

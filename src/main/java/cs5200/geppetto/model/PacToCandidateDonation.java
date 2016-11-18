@@ -5,8 +5,8 @@ import java.util.Date;
 public class PacToCandidateDonation {
   private String cycle;
   private String fecRecNo;
-  private String cid;
-  private String pacId;
+  private Candidate candidate;
+  private Committees committee;
   private float amount;
   private Date date;
   private String realCode;
@@ -14,13 +14,14 @@ public class PacToCandidateDonation {
   private String di;
   private String fecCandId;
 
-  public PacToCandidateDonation(String cycle, String fecRecNo, String cid, String pacId,
-      float amount, Date date, String realCode, String type, String di, String fecCandId) {
+  public PacToCandidateDonation(String cycle, String fecRecNo, Candidate candidate,
+      Committees committee, float amount, Date date, String realCode, String type, String di,
+      String fecCandId) {
     super();
     this.cycle = cycle;
     this.fecRecNo = fecRecNo;
-    this.cid = cid;
-    this.pacId = pacId;
+    this.candidate = candidate;
+    this.committee = committee;
     this.amount = amount;
     this.date = date;
     this.realCode = realCode;
@@ -58,31 +59,31 @@ public class PacToCandidateDonation {
   }
 
   /**
-   * @return the cid
+   * @return the candidate
    */
-  public String getCid() {
-    return this.cid;
+  public Candidate getCandidate() {
+    return this.candidate;
   }
 
   /**
-   * @param cid the cid to set
+   * @param candidate the candidate to set
    */
-  public void setCid(String cid) {
-    this.cid = cid;
+  public void setCandidate(Candidate candidate) {
+    this.candidate = candidate;
   }
 
   /**
-   * @return the pacId
+   * @return the committee
    */
-  public String getPacId() {
-    return this.pacId;
+  public Committees getCommittee() {
+    return this.committee;
   }
 
   /**
-   * @param pacId the pacId to set
+   * @param committee the committee to set
    */
-  public void setPacId(String pacId) {
-    this.pacId = pacId;
+  public void setCommittee(Committees committee) {
+    this.committee = committee;
   }
 
   /**
