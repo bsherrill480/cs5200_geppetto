@@ -1,0 +1,8 @@
+/home/brian/WebDev/5200_CS/geppetto/src/main/java/cs5200/geppetto/model/Lobbying.java
+/home/brian/WebDev/5200_CS/geppetto/src/main/java/cs5200/geppetto/dao/LobbyIndustryDao.java
+/home/brian/WebDev/5200_CS/geppetto/src/main/java/cs5200/geppetto/controllers/WelcomeController.java
+/home/brian/WebDev/5200_CS/geppetto/src/main/java/cs5200/geppetto/model/LobbyIndustry.java
+/home/brian/WebDev/5200_CS/geppetto/src/main/java/cs5200/geppetto/GeppettoMain.java
+/home/brian/WebDev/5200_CS/geppetto/src/main/java/cs5200/geppetto/dao/impl/JdbcLobbyIndustryDao.java
+/home/brian/WebDev/5200_CS/geppetto/src/main/java/cs5200/geppetto/dao/impl/MyJdbcDaoSupport.java
+/home/brian/WebDev/5200_CS/geppetto/src/main/java/cs5200/geppetto/controllers/LobbyingIndustriesController.java
