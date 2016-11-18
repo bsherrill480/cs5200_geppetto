@@ -60,7 +60,8 @@ public class JdbcCommitteesDao extends MyJdbcDaoSupport implements CommitteesDao
   @Override
   public List<Committees> getCommitteesByCycle(String cycle) throws SQLException {
     List<Committees> committees = new ArrayList<Committees>();
-    String getCommitteesByCycle = "SELECT * FROM Cmtes16 WHERE Cycle=?;";
+    String getCommitteesByCycle =
+        "SELECT * FROM Cmtes16 WHERE Cycle=? AND PACShort<>' ' ORDER BY PACShort ASC;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
     ResultSet results = null;
@@ -99,6 +100,40 @@ public class JdbcCommitteesDao extends MyJdbcDaoSupport implements CommitteesDao
       connection = getConnection();
       selectStmt = connection.prepareStatement(getCommitteeByCmteId);
       selectStmt.setString(1, cmteId);
+      results = selectStmt.executeQuery();
+      if (results.next()) {
+        return parseCommittees(results);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if (connection != null) {
+        connection.close();
+      }
+      if (selectStmt != null) {
+        selectStmt.close();
+      }
+      if (results != null) {
+        results.close();
+      }
+    }
+    return null;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Committees getCommitteeByPACShort(String pacShort) throws SQLException {
+    String getCommitteeByPACShort = "SELECT * FROM Cmtes16 WHERE PACShort=?;";
+    Connection connection = null;
+    PreparedStatement selectStmt = null;
+    ResultSet results = null;
+    try {
+      connection = getConnection();
+      selectStmt = connection.prepareStatement(getCommitteeByPACShort);
+      selectStmt.setString(1, pacShort);
       results = selectStmt.executeQuery();
       if (results.next()) {
         return parseCommittees(results);

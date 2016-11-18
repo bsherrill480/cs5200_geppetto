@@ -100,7 +100,8 @@ public class JdbcCandidateDao extends MyJdbcDaoSupport implements CandidateDao {
   @Override
   public List<Candidate> getCandidatesByCycle(String year) throws SQLException {
     List<Candidate> candidates = new ArrayList<Candidate>();
-    String getCandidatesByCycle = "SELECT * FROM CandsCRP16 WHERE Cycle=?;";
+    String getCandidatesByCycle =
+        "SELECT * FROM CandsCRP16 WHERE Cycle=? AND FirstLastP<>' ' ORDER BY FirstLastP ASC;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
     ResultSet results = null;
@@ -127,6 +128,40 @@ public class JdbcCandidateDao extends MyJdbcDaoSupport implements CandidateDao {
       }
     }
     return candidates;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Candidate getCandidateByFirstLastP(String firstLastP) throws SQLException {
+    String getCandidateByFirstLastP = "SELECT * FROM CandsCRP16 WHERE FirstLastP=?;";
+    Connection connection = null;
+    PreparedStatement selectStmt = null;
+    ResultSet results = null;
+    try {
+      connection = getConnection();
+      selectStmt = connection.prepareStatement(getCandidateByFirstLastP);
+      selectStmt.setString(1, firstLastP);
+      results = selectStmt.executeQuery();
+      if (results.next()) {
+        return parseCandidate(results);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if (connection != null) {
+        connection.close();
+      }
+      if (selectStmt != null) {
+        selectStmt.close();
+      }
+      if (results != null) {
+        results.close();
+      }
+    }
+    return null;
   }
 
   /**
