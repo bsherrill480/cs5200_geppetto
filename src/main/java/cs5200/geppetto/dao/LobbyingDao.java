@@ -7,7 +7,7 @@ import cs5200.geppetto.model.Lobbying;
  */
 public interface LobbyingDao {
     Lobbying create(Lobbying lobbying);
-    Lobbying get(Lobbying lobbying); // read
+    Lobbying getByUniqId(String uniqId); // read
     Lobbying update(Lobbying lobbying);
-    void delete(Lobbying lobbying);
+    void deleteByUniqId(String uniqId);
 }

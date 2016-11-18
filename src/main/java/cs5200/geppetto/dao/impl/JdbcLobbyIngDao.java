@@ -58,7 +58,7 @@ public class JdbcLobbyIngDao extends MyJdbcDaoSupport implements LobbyingDao {
     }
 
 	@Override
-	public Lobbying get(Lobbying lobbyingGetter) {
+	public Lobbying getByUniqId(String uniqId) {
 		String sql = "SELECT * FROM Lobbying WHERE uniqid = ?";
 
 		Connection conn = null;
@@ -66,7 +66,7 @@ public class JdbcLobbyIngDao extends MyJdbcDaoSupport implements LobbyingDao {
 		try {
             conn = getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, lobbyingGetter.getUniqId());
+			ps.setString(1, uniqId);
 			ResultSet rs = ps.executeQuery();
             Lobbying lobbying = null;
 			if(rs.next()) {
@@ -107,7 +107,7 @@ public class JdbcLobbyIngDao extends MyJdbcDaoSupport implements LobbyingDao {
 
 	@Override
 	public Lobbying update(Lobbying lobbying) {
-		String sql = "UPDATE LobbyIndus SET " +
+		String sql = "UPDATE Lobbying SET " +
 				"uniqid = ?, " +
 				"registrant_raw = ?, " +
 				"registrant = ?, " +
@@ -120,12 +120,12 @@ public class JdbcLobbyIngDao extends MyJdbcDaoSupport implements LobbyingDao {
 				"source = ?, " +
 				"self = ?, " +
 				"IncludeNSFS = ?, " +
-				"use = ?, " +
+				"`use` = ?, " +
 				"ind = ?, " +
-				"year = ?, " +
-				"type = ?, " +
+				"`year` = ?, " +
+				"`type` = ?, " +
 				"typeLong = ?, " +
-				"affiliate = ?, " +
+				"affiliate = ? " +
 				"WHERE uniqid = ?";
 		Connection conn = null;
 		try {
@@ -165,7 +165,7 @@ public class JdbcLobbyIngDao extends MyJdbcDaoSupport implements LobbyingDao {
 	}
 
     @Override
-    public void delete(Lobbying lobbying) {
+    public void deleteByUniqId(String uniqId) {
 		String sql = "DELETE FROM Lobbying WHERE uniqid = ?";
 
 		Connection conn = null;
@@ -173,7 +173,7 @@ public class JdbcLobbyIngDao extends MyJdbcDaoSupport implements LobbyingDao {
 		try {
             conn = getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, lobbying.getUniqId());
+			ps.setString(1, uniqId);
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
