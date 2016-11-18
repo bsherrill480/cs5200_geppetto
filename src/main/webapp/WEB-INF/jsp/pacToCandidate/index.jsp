@@ -9,7 +9,15 @@
         <h1>PAC Donations to Candidates</h1>
         <form>
             <label>From: </label>
-            <input list="pacs">
+            <!--
+            <select>
+                <option value="All">All</option>
+            	<c:forEach items="${committees}" var="committee">
+            		<option value="<c:out value="${committee.getPACShort()}"/>"><c:out value="${committee.getPACShort()}"/></option>
+                </c:forEach>
+            </select>
+              -->
+            <input name="pacShort" list="pacs" value="<c:out value="${selCmte}"/>">
             <datalist id="pacs">
             	<option value="All">
             	<c:forEach items="${committees}" var="committee">
@@ -17,7 +25,15 @@
                 </c:forEach>
             </datalist>
             <span>To: </span>
-            <input list="candidates">
+            <!-- 
+            <select>
+            	<option value="All">All</option>
+            	<c:forEach items="${candidates}" var="candidate">
+            		<option value="<c:out value="${candidate.getFirstLastP()}"/>"><c:out value="${candidate.getFirstLastP()}"/></option>
+                </c:forEach>            
+            </select>
+            -->
+            <input name="candFirstLastP" list="candidates" value="<c:out value="${selCand}"/>">
             <datalist id="candidates">
             	<option value="All">
             	<c:forEach items="${candidates}" var="candidate">
@@ -26,7 +42,6 @@
             </datalist>
             <button type="submit">Go</button>
         </form>
-        <!--
         <div>
             <h3>Results:</h3>
             <table>
@@ -50,6 +65,5 @@
                 </tbody>
             </table>
         </div>
-        -->
     </body>
 </html>
