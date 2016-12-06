@@ -12,32 +12,26 @@
  * the License.
  */
 
-package cs5200.geppetto.controllers;
+package cs5200.geppetto.controllers.campaignFinancePages;
 
-import java.util.Map;
-
+import cs5200.geppetto.controllers.WelcomeController;
+import cs5200.geppetto.dao.LobbyIndustryDao;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import cs5200.geppetto.dao.LobbyIndustryDao;
+import java.util.Map;
 
 
 @Controller
-public class WelcomeController {
+public class CampaginFinaceOverview {
 
-  static Logger log = Logger.getLogger(WelcomeController.class.getName());
+  static Logger log = Logger.getLogger(CampaginFinaceOverview.class.getName());
 
-  @Autowired
-  private LobbyIndustryDao lobbyIndustryDao;
-
-  @Value("${application.message:Hello World}")
-  private String message = "Hello World";
-
-  @GetMapping("/")
+  @GetMapping("/campaignFinance")
   public String welcome(Map<String, Object> model) {
-    return "welcome";
+    return "campaignFinancePages/campaignFinanceOverview";
   }
 }

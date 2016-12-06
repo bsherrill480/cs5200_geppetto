@@ -15,6 +15,8 @@ public interface CandidateDao {
 
   Candidate getCandidateByFECCandId(String fecCandId) throws SQLException;
 
+  Candidate getCandidateByCID(String CID) throws SQLException;
+
   Candidate getCandidateByFirstLastP(String firstLastP) throws SQLException;
 
   Candidate updateCycle(Candidate candidate, String cycle) throws SQLException;

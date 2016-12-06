@@ -6,6 +6,8 @@ package cs5200.geppetto.dao.impl;
 import cs5200.geppetto.model.IndividualContributions;
 import cs5200.geppetto.dao.IndividualContributionsDao;
 import cs5200.geppetto.model.Committees;
+import cs5200.geppetto.model.campaignFinance.IndividualTotalDonations;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
@@ -13,12 +15,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
 public class JdbcIndividualContributionsDao extends MyJdbcDaoSupport implements
 		IndividualContributionsDao {
-
+		private static final String GET_TOP_AMOUNT = "100";
 //		@Override
 		public IndividualContributions create(IndividualContributions individualContributions) {
 				String sql = "INSERT INTO Committees VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -120,20 +123,52 @@ public class JdbcIndividualContributionsDao extends MyJdbcDaoSupport implements
 				}
 		}
 
+        @Override
+		public List<IndividualContributions> get(String contribID) {
+			return get(new IndividualContributions(
+					"",
+					"",
+					contribID,
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					""
+			));
+		}
+
 		@Override
-		public IndividualContributions get(IndividualContributions individualContributionsGetter) {
-				String sql = "SELECT * FROM Committees WHERE ContribId = ?";
+		public List<IndividualContributions> get(IndividualContributions
+															 individualContributionsGetter) {
+				String sql = "SELECT * FROM Indivs16 WHERE ContribId = ?";
 
 				Connection conn = null;
 
 				try {
 						conn = getConnection();
 						PreparedStatement ps = conn.prepareStatement(sql);
-						ps.setString(1, individualContributionsGetter.getCmteld());
+						ps.setString(1, individualContributionsGetter.getContribId());
 						ResultSet rs = ps.executeQuery();
-						Committees committees = null;
-						if(rs.next()) {
-								individualContributionsGetter = new IndividualContributions(
+						List<IndividualContributions> individualContributionsList =
+								new LinkedList<IndividualContributions>();
+						while(rs.next()) {
+								IndividualContributions individualContributions = new
+										IndividualContributions(
 										rs.getString("Cycle"),
 										rs.getString("FECTransid"),
 										rs.getString("ContribId"),
@@ -158,10 +193,11 @@ public class JdbcIndividualContributionsDao extends MyJdbcDaoSupport implements
 										rs.getString("Employer"),
 										rs.getString("Source")
 								);
+							individualContributionsList.add(individualContributions);
 						}
 						rs.close();
 						ps.close();
-						return individualContributionsGetter;
+						return individualContributionsList;
 				} catch (SQLException e) {
 						throw new RuntimeException(e);
 				} finally {
@@ -242,5 +278,76 @@ public class JdbcIndividualContributionsDao extends MyJdbcDaoSupport implements
 						}
 				}
 		}
+
+	@Cacheable
+	private List<IndividualTotalDonations> getTopByGeneric(String sql, String param) {
+
+		Connection conn = null;
+
+		try {
+			conn = getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+            if(!param.isEmpty()) {
+				ps.setString(1, param);
+			}
+			ResultSet rs = ps.executeQuery();
+			List<IndividualTotalDonations> individualTotalDonationsList =
+					new LinkedList<IndividualTotalDonations>();
+			while(rs.next()) {
+				IndividualTotalDonations individualTotalDonations  = new IndividualTotalDonations(
+						rs.getString("TotGiven"),
+						rs.getString("NumDonations"),
+						rs.getString("contrib"),
+						rs.getString("contribID")
+				);
+                individualTotalDonationsList.add(individualTotalDonations);
+			}
+			rs.close();
+			ps.close();
+			return individualTotalDonationsList;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {}
+			}
+		}
+	}
+
+	@Override
+	public List<IndividualTotalDonations> getByTop() {
+		return this.getTopByGeneric("" +
+				"SELECT ContribID, SUM(amount) AS TotGiven, COUNT(*) AS NumDonations, contrib\n" +
+				"FROM Indivs16\n" +
+				"WHERE ContribID != \"\"" +
+				"GROUP BY ContribID\n" +
+				"ORDER BY TotGiven DESC \n" +
+				"LIMIT " + GET_TOP_AMOUNT, "");
+	}
+
+	@Override
+	public List<IndividualTotalDonations> getByTopByCity(String location) {
+		return this.getTopByGeneric("" +
+				"SELECT ContribID, SUM(amount) AS TotGiven, COUNT(*) AS NumDonations, contrib\n" +
+				"FROM Indivs16 USE INDEX (City)\n" +
+				"WHERE ContribID != \"\" AND LOWER(City) = LOWER(?)" +
+				"GROUP BY ContribID\n" +
+				"ORDER BY TotGiven DESC \n" +
+				"LIMIT " + GET_TOP_AMOUNT, location.toLowerCase());
+	}
+
+	@Override
+	public List<IndividualTotalDonations> getByTopByState(String location) {
+		return this.getTopByGeneric("" +
+				"SELECT ContribID, SUM(amount) AS TotGiven, COUNT(*) AS NumDonations, contrib\n" +
+				"FROM Indivs16 USE INDEX (State) \n" +
+				"WHERE ContribID != \"\" AND LOWER(State) = LOWER(?)" +
+				"GROUP BY ContribID\n" +
+				"ORDER BY TotGiven DESC \n" +
+				"LIMIT " + GET_TOP_AMOUNT, location.toLowerCase());
+	}
 }
+
 

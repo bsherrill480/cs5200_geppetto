@@ -94,6 +94,40 @@ public class JdbcCandidateDao extends MyJdbcDaoSupport implements CandidateDao {
     return null;
   }
 
+    /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Candidate getCandidateByCID(String CID) throws SQLException {
+    String getCandidateByFECCandId = "SELECT * FROM CandsCRP16 WHERE CID=?;";
+    Connection connection = null;
+    PreparedStatement selectStmt = null;
+    ResultSet results = null;
+    try {
+      connection = getConnection();
+      selectStmt = connection.prepareStatement(getCandidateByFECCandId);
+      selectStmt.setString(1, CID);
+      results = selectStmt.executeQuery();
+      if (results.next()) {
+        return parseCandidate(results);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if (connection != null) {
+        connection.close();
+      }
+      if (selectStmt != null) {
+        selectStmt.close();
+      }
+      if (results != null) {
+        results.close();
+      }
+    }
+    return null;
+  }
+
   /**
    * {@inheritDoc}
    */

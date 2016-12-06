@@ -28,6 +28,7 @@ public class IndividualContributions {
 		protected String Occupation;
 		protected String Employer;
 		protected String Source;
+		protected String recipName;
 
 		public IndividualContributions(String cycle, String FECTTransId, String contribId,
 				String contrib, String recipId, String orgname, String ultOrg, String realCode, String date,
@@ -242,4 +243,13 @@ public class IndividualContributions {
 		public void setSource(String source) {
 				Source = source;
 		}
+
+		public String getRecipName() {
+			return this.recipName == null ? "Not Set Yet" : this.recipName;
+		}
+
+		public void setRecipName(String name) {
+			this.recipName = name;
+		}
+
 }

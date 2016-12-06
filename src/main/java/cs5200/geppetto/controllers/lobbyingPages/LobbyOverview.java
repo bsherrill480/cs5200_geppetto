@@ -12,10 +12,11 @@
  * the License.
  */
 
-package cs5200.geppetto.controllers;
+package cs5200.geppetto.controllers.lobbyingPages;
 
 import java.util.Map;
 
+import cs5200.geppetto.controllers.WelcomeController;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,18 +27,12 @@ import cs5200.geppetto.dao.LobbyIndustryDao;
 
 
 @Controller
-public class WelcomeController {
+public class LobbyOverview {
 
-  static Logger log = Logger.getLogger(WelcomeController.class.getName());
+  static Logger log = Logger.getLogger(LobbyOverview.class.getName());
 
-  @Autowired
-  private LobbyIndustryDao lobbyIndustryDao;
-
-  @Value("${application.message:Hello World}")
-  private String message = "Hello World";
-
-  @GetMapping("/")
+  @GetMapping("/lobbying")
   public String welcome(Map<String, Object> model) {
-    return "welcome";
+    return "lobbyingPages/lobbyingOverview";
   }
 }

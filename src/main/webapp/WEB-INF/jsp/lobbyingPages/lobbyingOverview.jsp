@@ -6,28 +6,31 @@
 <html lang="en">
 
 <head>
-    <%@include file="header_content.jsp"%>
+    <%@include file="../header_content.jsp"%>
 </head>
 
 <body>
 <div id="wrapper">
 
-    <%@include file="sidebar.jsp"%>
+    <%@include file="../sidebar.jsp"%>
 
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Welcome to Geppetto</h1>
+                    <h1>
+                        Lobbying
+                    </h1>
                     <p>
-                        We here have stuff to say abour our project
+                        Describe lobbying here.
                     </p>
                     <p>
-                        Did it go well?
+                        Talk at a high level about why it's important that our project talks
+                        about it
                     </p>
                     <p>
-                        Other stuff!
+                        Give some samples of our lobby pages?
                     </p>
                 </div>
             </div>

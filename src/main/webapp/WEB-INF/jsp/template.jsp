@@ -19,16 +19,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Welcome to Geppetto</h1>
-                    <p>
-                        We here have stuff to say abour our project
-                    </p>
-                    <p>
-                        Did it go well?
-                    </p>
-                    <p>
-                        Other stuff!
-                    </p>
+                    <!-- CONTENT GOES HERE -->
                 </div>
             </div>
         </div>
