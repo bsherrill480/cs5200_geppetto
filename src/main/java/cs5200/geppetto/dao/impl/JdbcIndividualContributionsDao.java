@@ -3,10 +3,13 @@ package cs5200.geppetto.dao.impl;
 /**
  * Created by andrewdickens on 11/17/16.
  */
+import cs5200.geppetto.dao.CandidateDao;
+import cs5200.geppetto.dao.CommitteesDao;
 import cs5200.geppetto.model.IndividualContributions;
 import cs5200.geppetto.dao.IndividualContributionsDao;
 import cs5200.geppetto.model.Committees;
 import cs5200.geppetto.model.campaignFinance.IndividualTotalDonations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +24,15 @@ import java.util.List;
 @Service
 public class JdbcIndividualContributionsDao extends MyJdbcDaoSupport implements
 		IndividualContributionsDao {
+
+
+
+        @Autowired
+        private CommitteesDao committeesDao;
+
+        @Autowired
+        private CandidateDao candidateDao;
+
 		private static final String GET_TOP_AMOUNT = "100";
 //		@Override
 		public IndividualContributions create(IndividualContributions individualContributions) {
@@ -105,7 +117,9 @@ public class JdbcIndividualContributionsDao extends MyJdbcDaoSupport implements
 										rs.getString("Microfilm"),
 										rs.getString("Occupation"),
 										rs.getString("Employer"),
-										rs.getString("Source")
+										rs.getString("Source"),
+										candidateDao.getCandidateByCID(rs.getString("RecipId")),
+										committeesDao.getCommitteeByCmteId(rs.getString("RecipId"))
 								);
 								individualContributionses.add(individualContributions);
 						}
@@ -148,7 +162,9 @@ public class JdbcIndividualContributionsDao extends MyJdbcDaoSupport implements
 					"",
 					"",
 					"",
-					""
+					"",
+					null,
+					null
 			));
 		}
 
@@ -191,7 +207,9 @@ public class JdbcIndividualContributionsDao extends MyJdbcDaoSupport implements
 										rs.getString("Microfilm"),
 										rs.getString("Occupation"),
 										rs.getString("Employer"),
-										rs.getString("Source")
+										rs.getString("Source"),
+										candidateDao.getCandidateByCID(rs.getString("RecipId")),
+										committeesDao.getCommitteeByCmteId(rs.getString("RecipId"))
 								);
 							individualContributionsList.add(individualContributions);
 						}

@@ -15,6 +15,9 @@
 <!-- our CSS -->
 <link href="/css/base.css" rel="stylesheet">
 
+<!--font awesome -->
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+
 <!-- jQuery (for bootstrap) -->
 <script src="/js/jquery.js"></script>
 

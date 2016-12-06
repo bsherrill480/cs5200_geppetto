@@ -3,6 +3,7 @@ cs5200/geppetto/controllers/PacToCandidateController.class
 cs5200/geppetto/controllers/LobbyissuesController.class
 cs5200/geppetto/dao/LobbyIndustryDao.class
 cs5200/geppetto/controllers/LobbyingBillsController.class
+cs5200/geppetto/model/campaignFinance/CandReceivingFromPac.class
 cs5200/geppetto/controllers/lobbyingPages/LobbyOverview.class
 cs5200/geppetto/dao/impl/LobbyIssuesDao.class
 cs5200/geppetto/model/campaignFinance/IndividualTotalDonations.class
@@ -10,6 +11,8 @@ cs5200/geppetto/model/LobbyIssues.class
 cs5200/geppetto/dao/impl/JdbcLobbyIndustryDao.class
 cs5200/geppetto/controllers/IndividualContributionsController.class
 cs5200/geppetto/model/Lobbying.class
+cs5200/geppetto/controllers/campaignFinancePages/CandidatesReceivingPacMoney.class
+cs5200/geppetto/model/campaignFinance/CandReceivingFromPacs.class
 cs5200/geppetto/controllers/campaignFinancePages/CampaginFinaceOverview.class
 cs5200/geppetto/GeppettoMain.class
 cs5200/geppetto/model/LobbyingBills.class

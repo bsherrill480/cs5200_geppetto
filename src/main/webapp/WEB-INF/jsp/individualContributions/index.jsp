@@ -40,7 +40,7 @@
                                     <c:out value="${indiv.getAmount()}" />
                                 </td>
                                 <td>
-                                    <c:out value="${indiv.getDate()}" />
+                                    <c:out value="${indiv.getDateWithoutTime()}" />
                                 </td>
                            </tr>
                         </c:forEach>

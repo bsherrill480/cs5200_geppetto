@@ -30,7 +30,7 @@ public class CampaginFinaceOverview {
 
   static Logger log = Logger.getLogger(CampaginFinaceOverview.class.getName());
 
-  @GetMapping("/campaignFinance")
+  @GetMapping("/CampaignFinance")
   public String welcome(Map<String, Object> model) {
     return "campaignFinancePages/campaignFinanceOverview";
   }

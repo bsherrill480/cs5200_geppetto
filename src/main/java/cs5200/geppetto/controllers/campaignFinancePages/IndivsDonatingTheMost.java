@@ -35,7 +35,7 @@ public class IndivsDonatingTheMost {
   @Autowired
   private IndividualContributionsDao individualContributionsDao;
 
-  @GetMapping("/campaignFinance/IndividualsDonatingTheMost")
+  @GetMapping("/CampaignFinance/IndividualsDonatingTheMost")
   public String welcome(Map<String, Object> model,
                         @RequestParam(defaultValue = "") String city,
                         @RequestParam(defaultValue = "") String state) {

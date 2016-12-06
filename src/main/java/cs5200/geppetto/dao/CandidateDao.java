@@ -4,6 +4,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 import cs5200.geppetto.model.Candidate;
+import cs5200.geppetto.model.Committees;
+import cs5200.geppetto.model.campaignFinance.CandReceivingFromPac;
+import cs5200.geppetto.model.campaignFinance.CandReceivingFromPacs;
 
 /**
  * @author joshuaveden
@@ -22,4 +25,8 @@ public interface CandidateDao {
   Candidate updateCycle(Candidate candidate, String cycle) throws SQLException;
 
   Candidate delete(String fecCandId) throws SQLException;
+
+  List<CandReceivingFromPacs> candsRecievingMostFromPacs() throws SQLException;
+
+  List<CandReceivingFromPac> getCommitteesDonatingToCandidate(String fecCandId) throws SQLException;
 }

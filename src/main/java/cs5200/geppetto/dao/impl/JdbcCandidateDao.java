@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import cs5200.geppetto.dao.CommitteesDao;
+import cs5200.geppetto.model.Committees;
+import cs5200.geppetto.model.campaignFinance.CandReceivingFromPac;
+import cs5200.geppetto.model.campaignFinance.CandReceivingFromPacs;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cs5200.geppetto.dao.CandidateDao;
@@ -18,6 +23,10 @@ import cs5200.geppetto.model.Candidate;
  */
 @Service
 public class JdbcCandidateDao extends MyJdbcDaoSupport implements CandidateDao {
+
+
+  @Autowired
+  CommitteesDao committeesDao;
 
   /**
    * {@inheritDoc}
@@ -281,5 +290,89 @@ public class JdbcCandidateDao extends MyJdbcDaoSupport implements CandidateDao {
     String resNoPacs = results.getString("NoPacs");
     return new Candidate(resCycle, resFECCandId, resCID, resFirstLastP, resParty, resDistIdRunFor,
         resDistIdCurr, resCurrCand, resCycleCand, resCRPICO, resRecipCode, resNoPacs);
+  }
+
+  @Override
+  public List<CandReceivingFromPacs> candsRecievingMostFromPacs() throws SQLException {
+    List<CandReceivingFromPacs> candReceivingFromPacsList = new ArrayList<CandReceivingFromPacs>();
+    String sql =
+        "SELECT PACsToCand16.FECCandID, SUM(PACsToCand16.amount) AS TotGiven, COUNT(*) AS NumDonations\n" +
+                "FROM PACsToCand16 \n" +
+                "JOIN CandsCRP16 ON CandsCRP16.FECCandID = PACsToCand16.FECCandID\n" +
+                "GROUP BY FECCandID\n" +
+                "ORDER BY TotGiven DESC \n" +
+                "LIMIT 100;";
+    Connection connection = null;
+    PreparedStatement selectStmt = null;
+    ResultSet results = null;
+    try {
+      connection = getConnection();
+      selectStmt = connection.prepareStatement(sql);
+      results = selectStmt.executeQuery();
+      while (results.next()) {
+          CandReceivingFromPacs candReceivingFromPacs = new CandReceivingFromPacs(
+                  results.getString("TotGiven"),
+                  results.getString("NumDonations"),
+                  getCandidateByFECCandId(results.getString("FECCandID"))
+          );
+        candReceivingFromPacsList.add(candReceivingFromPacs);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if (connection != null) {
+        connection.close();
+      }
+      if (selectStmt != null) {
+        selectStmt.close();
+      }
+      if (results != null) {
+        results.close();
+      }
+    }
+    return candReceivingFromPacsList;
+  }
+
+  @Override
+  public List<CandReceivingFromPac> getCommitteesDonatingToCandidate(String fecCandId) throws SQLException {
+        List<CandReceivingFromPac> candReceivingFromPacList = new ArrayList<CandReceivingFromPac>();
+    String sql =
+        "SELECT PACID, COUNT(*) AS CNT, SUM(Amount) AS AMOUNT\n" +
+                "FROM PACsToCand16 \n" +
+                "WHERE FECCandID = ?\n" +
+                "GROUP BY PACID\n" +
+                "ORDER BY AMOUNT DESC;";
+    Connection connection = null;
+    PreparedStatement selectStmt = null;
+    ResultSet results = null;
+    try {
+      connection = getConnection();
+      selectStmt = connection.prepareStatement(sql);
+      selectStmt.setString(1, fecCandId);
+      results = selectStmt.executeQuery();
+      while (results.next()) {
+        CandReceivingFromPac candReceivingFromPac = new CandReceivingFromPac(
+                results.getString("AMOUNT"),
+                results.getString("CNT"),
+                committeesDao.getCommitteeByCmteId(results.getString("PACID"))
+        );
+        candReceivingFromPacList.add(candReceivingFromPac);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if (connection != null) {
+        connection.close();
+      }
+      if (selectStmt != null) {
+        selectStmt.close();
+      }
+      if (results != null) {
+        results.close();
+      }
+    }
+    return candReceivingFromPacList;
   }
 }

@@ -47,17 +47,23 @@
             </ul>
         </li>
         <li>
-            <a href="/campaignFinance">Campaign Finance</a>
+            <a href="/CampaignFinance">Campaign Finance</a>
         </li>
         <li>
             <ul class="sidebar-nav__sub-list">
+                <%--If we have time--%>
+                <%--<li>--%>
+                    <%--<a href="#">--%>
+                         <%--Search Candidates--%>
+                    <%--</a>--%>
+                <%--</li>--%>
                 <li>
-                    <a href="/campaignFinance/IndividualsDonatingTheMost">
+                    <a href="/CampaignFinance/IndividualsDonatingTheMost">
                         Individuals Donating The Most
                     </a>
                 </li>
                 <li>
-                    <a href="#">Candidates Receiving Pac Money</a>
+                    <a href="/CampaignFinance/CandidatesReceivingPacMoney">Candidates Receiving Pac Money</a>
                 </li>
                 <li>
                     <a href="#">Top Industry Donors</a>

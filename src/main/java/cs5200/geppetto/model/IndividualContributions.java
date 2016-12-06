@@ -1,9 +1,16 @@
 package cs5200.geppetto.model;
 
+import cs5200.geppetto.dao.CandidateDao;
+import cs5200.geppetto.dao.CommitteesDao;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.sql.SQLException;
+
 /**
  * Created by andrewdickens on 11/17/16.
  */
 public class IndividualContributions {
+
 
 		protected String Cycle;
 		protected String FECTTransId;
@@ -28,13 +35,16 @@ public class IndividualContributions {
 		protected String Occupation;
 		protected String Employer;
 		protected String Source;
-		protected String recipName;
+		protected String recipName = null;
+    	protected Candidate candidate;
+		protected Committees committees;
 
 		public IndividualContributions(String cycle, String FECTTransId, String contribId,
 				String contrib, String recipId, String orgname, String ultOrg, String realCode, String date,
 				String amount, String street, String city, String state, String zip, String recipCode,
 				String type, String cmteld, String otherId, String gender, String microfilm,
-				String occupation, String employer, String source) {
+				String occupation, String employer, String source, Candidate candidate,
+									   Committees committees) {
 				Cycle = cycle;
 				this.FECTTransId = FECTTransId;
 				ContribId = contribId;
@@ -58,6 +68,8 @@ public class IndividualContributions {
 				Occupation = occupation;
 				Employer = employer;
 				Source = source;
+				this.candidate = candidate;
+				this.committees = committees;
 		}
 
 		public String getCycle() {
@@ -126,6 +138,11 @@ public class IndividualContributions {
 
 		public String getDate() {
 				return Date;
+		}
+
+		public String getDateWithoutTime() {
+            String d = getDate();
+			return d.substring(0, d.length() - 10);
 		}
 
 		public void setDate(String date) {
@@ -244,12 +261,14 @@ public class IndividualContributions {
 				Source = source;
 		}
 
-		public String getRecipName() {
-			return this.recipName == null ? "Not Set Yet" : this.recipName;
+		// either a candidate or committee
+		public String getRecipName() throws SQLException{
+			if(recipName == null) {
+				recipName = candidate == null ? "" : candidate.getFirstLastP();
+				if (recipName.isEmpty()) {
+					recipName = committees == null ? "" : committees.getPACShort();
+				}
+			}
+			return recipName;
 		}
-
-		public void setRecipName(String name) {
-			this.recipName = name;
-		}
-
 }

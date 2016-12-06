@@ -28,35 +28,11 @@ public class IndividualContributionsController {
 	@Autowired
 	private IndividualContributionsDao individualContributionsDao;
 
-	@Autowired
-	private CommitteesDao committeesDao;
-
-	@Autowired
-	private CandidateDao candidateDao;
-
-	// would be much better to do this with the inital join, but for dev time sake this works
-	private void addRecipName(List<IndividualContributions> individualContributionsList)  throws
-			SQLException {
-		for(IndividualContributions individualContributions: individualContributionsList) {
-			Candidate candidate =
-					candidateDao.getCandidateByCID(individualContributions.getRecipId());
-			individualContributions.setRecipName(candidate == null ? "" : candidate.getFirstLastP());
-		}
-		for(IndividualContributions individualContributions: individualContributionsList) {
-			if(individualContributions.getRecipName().isEmpty()) {
-				Committees cmte =
-						committeesDao.getCommitteeByCmteId(individualContributions.getRecipId());
-				individualContributions.setRecipName(cmte == null ? "" : cmte.getPACShort());
-			}
-		}
-	}
-
     @GetMapping(baseUrl + contribIDPathVariable)
 	public String index(Map<String, Object> model,
 						@PathVariable(value="contribID") String contribID) throws SQLException {
 		List<IndividualContributions> individualContributionsList =
 				individualContributionsDao.get(contribID);
-        addRecipName(individualContributionsList);
 		model.put("individualContributionsList", individualContributionsList);
 		return "individualContributions/index";
 	}
