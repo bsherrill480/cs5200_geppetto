@@ -31,4 +31,6 @@ public interface CandidateDao {
   List<CandReceivingFromPac> getCommitteesDonatingToCandidate(String fecCandId) throws SQLException;
 
   Map<String, Double> averageDonationsFromIndividuals() throws SQLException;
+
+  Map<String, Double> totalDonationsFromIndividuals() throws SQLException;
 }

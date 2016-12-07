@@ -72,7 +72,7 @@
                     <a href="/CampaignFinance/IndividualDonations/AverageToCandidate">Average Individual Donations</a>
                 </li>
                 <li>
-                    <a href="/CampaignFinance/IndividualDonations/TotalToCandidate">Candidates By Donations</a>
+                    <a href="/CampaignFinance/IndividualDonations/DonationCounts">Candidates By Donations</a>
                 </li>
                 <li>
                     <a href="/CampaignFinance/PacDonations/AverageToCandidate">Average Donation From Pacs</a>

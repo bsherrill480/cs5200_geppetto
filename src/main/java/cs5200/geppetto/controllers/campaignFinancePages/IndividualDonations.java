@@ -43,8 +43,10 @@ public class IndividualDonations {
     return "campaignFinancePages/averageIndividualDonations";
   }
 
-  @GetMapping(IndividualDonations.baseUrl + "/TotalToCandidate")
+  @GetMapping(IndividualDonations.baseUrl + "/DonationCounts")
   public String totalToCandidate(Map<String, Object> model) throws SQLException {
-    return "campaignFinancePages/totalIndividualDonations";
+    Map<String, Double> candidateToDonationCounts = this.candDao.totalDonationsFromIndividuals();
+    model.put("candidateToDonationCounts", candidateToDonationCounts);
+    return "campaignFinancePages/individualDonationsCounts";
   }
 }
