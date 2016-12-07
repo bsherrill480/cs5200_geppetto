@@ -411,7 +411,7 @@ public class JdbcCandidateDao extends MyJdbcDaoSupport implements CandidateDao {
    */
   @Override
   public Map<String, Double> totalDonationsFromIndividuals() throws SQLException {
-    Map<String, Double> candidateToonationCount = new TreeMap<String, Double>();
+    Map<String, Double> candidateToDonationCount = new TreeMap<String, Double>();
     String donationCount = "SELECT CandsCRP16.FirstLastP, COUNT(*) AS DONATION_CNT "
         + "FROM Indivs16 " + "INNER JOIN CandsCRP16 " + "WHERE Indivs16.RecipID = CandsCRP16.CID "
         + "GROUP BY CandsCRP16.FirstLastP;";
@@ -423,7 +423,7 @@ public class JdbcCandidateDao extends MyJdbcDaoSupport implements CandidateDao {
       selectStmt = connection.prepareStatement(donationCount);
       results = selectStmt.executeQuery();
       while (results.next()) {
-        candidateToonationCount.put(results.getString("FirstLastP"),
+        candidateToDonationCount.put(results.getString("FirstLastP"),
             results.getDouble("DONATION_CNT"));
       }
     } catch (SQLException e) {
@@ -440,6 +440,44 @@ public class JdbcCandidateDao extends MyJdbcDaoSupport implements CandidateDao {
         results.close();
       }
     }
-    return candidateToonationCount;
+    return candidateToDonationCount;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Map<String, Double> averageDonationsFromPacs() throws SQLException {
+    Map<String, Double> candidateToAverageDonation = new TreeMap<String, Double>();
+    String averageDonationsFromPacs =
+        "SELECT CandsCRP16.FirstLastP, AVG(Amount) AS AVG_RECEIVED_PAC_DONATION "
+            + "FROM PACsToCand16 " + "INNER JOIN CandsCRP16 "
+            + "WHERE PACsToCand16.CID = CandsCRP16.CID " + "GROUP BY CandsCRP16.FirstLastP;";
+    Connection connection = null;
+    PreparedStatement selectStmt = null;
+    ResultSet results = null;
+    try {
+      connection = getConnection();
+      selectStmt = connection.prepareStatement(averageDonationsFromPacs);
+      results = selectStmt.executeQuery();
+      while (results.next()) {
+        candidateToAverageDonation.put(results.getString("FirstLastP"),
+            results.getDouble("AVG_RECEIVED_PAC_DONATION"));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if (connection != null) {
+        connection.close();
+      }
+      if (selectStmt != null) {
+        selectStmt.close();
+      }
+      if (results != null) {
+        results.close();
+      }
+    }
+    return candidateToAverageDonation;
   }
 }

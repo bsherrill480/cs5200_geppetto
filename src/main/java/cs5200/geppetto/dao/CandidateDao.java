@@ -33,4 +33,6 @@ public interface CandidateDao {
   Map<String, Double> averageDonationsFromIndividuals() throws SQLException;
 
   Map<String, Double> totalDonationsFromIndividuals() throws SQLException;
+
+  Map<String, Double> averageDonationsFromPacs() throws SQLException;
 }
