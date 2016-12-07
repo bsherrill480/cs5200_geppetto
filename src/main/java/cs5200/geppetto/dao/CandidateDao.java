@@ -2,9 +2,9 @@ package cs5200.geppetto.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import cs5200.geppetto.model.Candidate;
-import cs5200.geppetto.model.Committees;
 import cs5200.geppetto.model.campaignFinance.CandReceivingFromPac;
 import cs5200.geppetto.model.campaignFinance.CandReceivingFromPacs;
 
@@ -29,4 +29,6 @@ public interface CandidateDao {
   List<CandReceivingFromPacs> candsRecievingMostFromPacs() throws SQLException;
 
   List<CandReceivingFromPac> getCommitteesDonatingToCandidate(String fecCandId) throws SQLException;
+
+  Map<String, Double> averageDonationsFromIndividuals() throws SQLException;
 }

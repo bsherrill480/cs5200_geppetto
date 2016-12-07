@@ -2,6 +2,7 @@
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html lang="en">
 
@@ -33,7 +34,16 @@
                         </tr>
                         </thead>
                         <tbody>
-
+	                        <c:forEach items="${averageDonationsFromIndividuals}" var="donationFromIndividual" >
+	                            <tr>
+	                                <td>
+	                                    <c:out value="${donationFromIndividual.key}" />
+	                                </td>
+	                                <td>
+	                                	<fmt:formatNumber value="${donationFromIndividual.value}"/>
+	                                </td>
+	                            </tr>
+	                        </c:forEach>
                         </tbody>
                     </table>
                 </div>

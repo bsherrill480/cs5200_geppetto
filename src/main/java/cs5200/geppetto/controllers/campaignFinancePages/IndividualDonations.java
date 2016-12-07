@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import cs5200.geppetto.dao.IndividualContributionsDao;
+import cs5200.geppetto.dao.CandidateDao;
 
 
 @Controller
@@ -33,10 +33,13 @@ public class IndividualDonations {
   static Logger log = Logger.getLogger(IndividualDonations.class.getName());
 
   @Autowired
-  private IndividualContributionsDao individDao;
+  private CandidateDao candDao;
 
   @GetMapping(IndividualDonations.baseUrl + "/AverageToCandidate")
   public String averageToCandidate(Map<String, Object> model) throws SQLException {
+    Map<String, Double> averageDonationsFromIndividuals =
+        this.candDao.averageDonationsFromIndividuals();
+    model.put("averageDonationsFromIndividuals", averageDonationsFromIndividuals);
     return "campaignFinancePages/averageIndividualDonations";
   }
 
