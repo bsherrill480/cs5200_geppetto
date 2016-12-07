@@ -39,7 +39,7 @@
                     <a href="#">Top Lobbied Issues</a>
                 </li>
                 <li>
-                    <a href="#">Former Congress-Member Lobbyists</a>
+                    <a href="/lobbying/FormerCongressMemberLobbyists">Former Congress-Member Lobbyists</a>
                 </li>
                 <li>
                     <a href="#">Top Lobbied Bills</a>
