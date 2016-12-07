@@ -19,8 +19,9 @@ public class FormerCongressMemberLobbyists {
   @GetMapping("/lobbying/FormerCongressMemberLobbyists")
   public String welcome(Map<String, Object> model) {
 
-    // to-do
-
+      List<Lobbyist> formerCongressMemberLobbyist = this.lobbyistDao.getFormerCongressMember();
+      model.put("formerCongressMemberLobbyist", formerCongressMemberLobbyist);
+      
     return "lobbyingPages/formerCongressMemberLobbyists";
   }
 
