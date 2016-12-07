@@ -69,13 +69,13 @@
                     <a href="#">Top Industry Donors</a>
                 </li>
                 <li>
-                    <a href="#">Average Individual Donations</a>
+                    <a href="/CampaignFinance/IndividualDonations/AverageToCandidate">Average Individual Donations</a>
                 </li>
                 <li>
-                    <a href="#">Candidates By Donations</a>
+                    <a href="/CampaignFinance/IndividualDonations/TotalToCandidate">Candidates By Donations</a>
                 </li>
                 <li>
-                    <a href="#">Average Donation From Pacs</a>
+                    <a href="/CampaignFinance/PacDonations/AverageToCandidate">Average Donation From Pacs</a>
                 </li>
             </ul>
         </li>
