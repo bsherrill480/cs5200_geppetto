@@ -36,7 +36,7 @@
                     <a href="#">Organizations Paying for Lobbying</a>
                 </li>
                 <li>
-                    <a href="#">Top Lobbied Issues</a>
+                    <a href="/lobbying/TopLobbiedIssues">Top Lobbied Issues</a>
                 </li>
                 <li>
                     <a href="/lobbying/FormerCongressMemberLobbyists">Former Congress-Member Lobbyists</a>
@@ -69,13 +69,13 @@
                     <a href="#">Top Industry Donors</a>
                 </li>
                 <li>
-                    <a href="/CampaignFinance/IndividualDonations/AverageToCandidate">Average Individual Donations</a>
+                    <a href="#">Average Individual Donations</a>
                 </li>
                 <li>
-                    <a href="/CampaignFinance/IndividualDonations/DonationCounts">Candidates By Donations</a>
+                    <a href="#">Candidates By Donations</a>
                 </li>
                 <li>
-                    <a href="/CampaignFinance/PacDonations/AverageToCandidate">Average Donation From Pacs</a>
+                    <a href="#">Average Donation From Pacs</a>
                 </li>
             </ul>
         </li>

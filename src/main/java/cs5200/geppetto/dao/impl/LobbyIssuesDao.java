@@ -4,18 +4,22 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-import cs5200.geppetto.controllers.WelcomeController;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import cs5200.geppetto.controllers.WelcomeController;
 import cs5200.geppetto.dao.LobbyIssuesInterface;
 import cs5200.geppetto.model.LobbyIssues;
+import cs5200.geppetto.model.lobbying.TopLobbyiedIssues;
 
 
 @Service
 public class LobbyIssuesDao extends MyJdbcDaoSupport implements LobbyIssuesInterface {
   static Logger log = Logger.getLogger(WelcomeController.class.getName());
+
   @Override
   public LobbyIssues create(LobbyIssues lobbyissue) {
     String insertLobbyIssue = "INSERT INTO lobbyissue VALUES (?,?,?,?,?,?)";
@@ -55,9 +59,9 @@ public class LobbyIssuesDao extends MyJdbcDaoSupport implements LobbyIssuesInter
     try {
       connection = getConnection();
       PreparedStatement selectStmt = connection.prepareStatement(selectLobbyIssue);
-      log.info("=========");
-      log.info(selectStmt);
-      log.info("=========");
+      LobbyIssuesDao.log.info("=========");
+      LobbyIssuesDao.log.info(selectStmt);
+      LobbyIssuesDao.log.info("=========");
       selectStmt.setInt(1, siId);
       ResultSet results = selectStmt.executeQuery();
       LobbyIssues lobbyissueObj = null;
@@ -88,7 +92,7 @@ public class LobbyIssuesDao extends MyJdbcDaoSupport implements LobbyIssuesInter
   @Override
   public LobbyIssues update(LobbyIssues lobbyissue) {
     String updateLobbyIssue =
-            "UPDATE lobbyissue SET issue=?, SpecificIssue=?, year=?" + " WHERE IssueID=?";
+        "UPDATE lobbyissue SET issue=?, SpecificIssue=?, year=?" + " WHERE IssueID=?";
     Connection coconnection = null;
     try {
       coconnection = getConnection();
@@ -132,6 +136,52 @@ public class LobbyIssuesDao extends MyJdbcDaoSupport implements LobbyIssuesInter
         }
       }
     }
+  }
+
+  @Override
+  public List<TopLobbyiedIssues> getTop() throws SQLException {
+    String sql = "SELECT lobbyissue.issue AS Issue, " + "COUNT(Lobbying.client) AS Clients_CNT\n"
+        + "FROM lobbyissue\n" + "LEFT JOIN Lobbying\n" + "ON lobbyissues.uniqID = Lobbying.uniqid\n"
+        + "GROUP BY lobbyissue.issue\n" + "ORDER BY Clients_CNT DESC;";
+    Connection connection = null;
+    PreparedStatement selectStmt = null;
+    ResultSet results = null;
+    try {
+      connection = getConnection();
+      selectStmt = connection.prepareStatement(sql);
+      results = selectStmt.executeQuery();
+      List<TopLobbyiedIssues> topLobbyIssuesList = new ArrayList<TopLobbyiedIssues>();
+      while (results.next()) {
+        topLobbyIssuesList.add(
+            new TopLobbyiedIssues(results.getString("Issue"), results.getString("Clients_CNT")));
+      }
+      return topLobbyIssuesList;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if (connection != null) {
+        connection.close();
+      }
+      if (selectStmt != null) {
+        selectStmt.close();
+      }
+      if (results != null) {
+        results.close();
+      }
+    }
+  }
+
+  @Override
+  public List<TopLobbyiedIssues> getTopByCity(String city) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public List<TopLobbyiedIssues> getTopByState(String state) {
+    // TODO Auto-generated method stub
+    return null;
   }
 }
 
