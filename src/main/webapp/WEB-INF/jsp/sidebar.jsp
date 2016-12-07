@@ -66,7 +66,7 @@
                     <a href="/CampaignFinance/CandidatesReceivingPacMoney">Candidates Receiving Pac Money</a>
                 </li>
                 <li>
-                    <a href="#">Top Industry Donors</a>
+                    <a href="/CampaignFinance/TopIndustryDonors">Top Industry Donors</a>
                 </li>
                 <li>
                     <a href="/CampaignFinance/IndividualDonations/AverageToCandidate">Average Individual Donations</a>

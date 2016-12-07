@@ -2,6 +2,7 @@
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html lang="en">
 
@@ -19,30 +20,32 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <!-- CONTENT GOES HERE -->
-                    <h3>Contributions fors
-                        <c:out value="${individualContributionsList[0].getContrib()}"></c:out></h3>
+                    <h1>
+                        Top Industry Donors
+                    </h1>
+                    <p>
+                        The top industry donations for   <c:out
+                            value="${pacDonationList[0].getCatName()}" />.
+                    </p>
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>To</th>
+                            <th>Industry</th>
                             <th>Amount</th>
-                            <th>Date</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${individualContributionsList}" var="pac" >
+                        <c:forEach items="${pacDonationList}" var="pac">
                             <tr>
                                 <td>
-                                    <c:out value="${pac.getRecipName()}" />
+                                    <a href="/CampaignFinance/TopIndustryDonors/PACID/<c:out
+                                    value="${pac.getCmteId()}" />">
+                                        <c:out value="${pac.getName()}" />
+                                    </a>
                                 </td>
-                                <td>
-                                    <c:out value="${pac.getAmount()}" />
-                                </td>
-                                <td>
-                                    <c:out value="${pac.getDateWithoutTime()}" />
-                                </td>
-                           </tr>
+                                    <%--<td><c:out value="${indiv.getTotalGiven()}" /></td>--%>
+                                <td><fmt:formatNumber value="${pac.getAmount()}" /></td>
+                            </tr>
                         </c:forEach>
                         </tbody>
                     </table>

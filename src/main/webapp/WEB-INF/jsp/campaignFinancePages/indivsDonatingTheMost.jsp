@@ -70,17 +70,17 @@
                                 <%@include file="indivsDonatingTheMostTop100Table.jsp"%>
                             </c:when>
                             <c:when test="${individualTotalDonationsList.size() != null}">
-                                <c:forEach items="${individualTotalDonationsList}" var="indiv" >
+                                <c:forEach items="${individualTotalDonationsList}" var="pac" >
                                     <tr>
                                         <td>
                                             <a href="/IndividualContributions/contribID/<c:out
-                                        value="${indiv.getContribID()}" />">
-                                                <c:out value="${indiv.getContributor()}" />
+                                        value="${pac.getContribID()}" />">
+                                                <c:out value="${pac.getContributor()}" />
                                             </a>
                                         </td>
                                             <%--<td><c:out value="${indiv.getTotalGiven()}" /></td>--%>
-                                        <td><fmt:formatNumber value="${indiv.getTotalGiven()}"/></td>
-                                        <td><c:out value="${indiv.getNumDonations()}" /></td>
+                                        <td><fmt:formatNumber value="${pac.getTotalGiven()}"/></td>
+                                        <td><c:out value="${pac.getNumDonations()}" /></td>
                                     </tr>
                                 </c:forEach>
                             </c:when>

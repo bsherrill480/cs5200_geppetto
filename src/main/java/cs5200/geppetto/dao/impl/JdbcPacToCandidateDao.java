@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import cs5200.geppetto.model.campaignFinance.PacDonation;
+import cs5200.geppetto.model.campaignFinance.PacDonationToCandidate;
+import cs5200.geppetto.model.campaignFinance.PacIndustryTotalDonation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -270,5 +273,138 @@ public class JdbcPacToCandidateDao extends MyJdbcDaoSupport implements PacToCand
         this.candidateDao.getCandidateByFECCandId(resFECCandID),
         this.committeeDao.getCommitteeByCmteId(resPACID), resAmount, resDate, resRealCode, resType,
         resDI, resFECCandID);
+  }
+
+  @Override
+  public List<PacIndustryTotalDonation> getPacIndustryTotalDonations() throws SQLException {
+    String sql = "SELECT IndusCodes.Catname AS Name, Cmtes16.PrimCode AS PrimCode, " +
+            "SUM(PACsToCand16.amount) AS Amount\n" +
+            "FROM PACsToCand16\n" +
+            "JOIN Cmtes16 ON PACsToCand16.PACID = Cmtes16.CmteID\n" +
+            "JOIN IndusCodes ON Cmtes16.PrimCode = IndusCodes.Catcode\n" +
+            "WHERE Cmtes16.PrimCode != \"\"\n" +
+            "GROUP BY Cmtes16.PrimCode\n" +
+            "ORDER BY Amount DESC;";
+    Connection connection = null;
+    PreparedStatement selectStmt = null;
+    ResultSet results = null;
+    try {
+      connection = getConnection();
+      selectStmt = connection.prepareStatement(sql);
+      results = selectStmt.executeQuery();
+
+      List<PacIndustryTotalDonation> pacIndustryTotalDonationList =
+              new ArrayList<PacIndustryTotalDonation>();
+      while(results.next()) {
+        pacIndustryTotalDonationList.add(new PacIndustryTotalDonation(
+                results.getString("Amount"),
+                results.getString("Name"),
+                results.getString("PrimCode")
+        ));
+      }
+      return pacIndustryTotalDonationList;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if (connection != null) {
+        connection.close();
+      }
+      if (selectStmt != null) {
+        selectStmt.close();
+      }
+      if (results != null) {
+        results.close();
+      }
+    }
+  }
+
+  @Override
+  public List<PacDonation> getPacDonationsByIndustry(String primCode) throws SQLException {
+    String sql = "SELECT Cmtes16.PACShort AS Name, SUM(PACsToCand16.amount) AS Amount, " +
+            "Cmtes16.CmteID AS CommitteeID, IndusCodes.Catname AS CatName\n" +
+            "FROM PACsToCand16\n" +
+            "JOIN Cmtes16 ON PACsToCand16.PACID = Cmtes16.CmteID\n" +
+            "JOIN IndusCodes ON Cmtes16.PrimCode = IndusCodes.Catcode\n" +
+            "WHERE Cmtes16.PrimCode = ?\n" +
+            "GROUP BY Cmtes16.CmteID\n" +
+            "ORDER BY Amount DESC;";
+    Connection connection = null;
+    PreparedStatement selectStmt = null;
+    ResultSet results = null;
+    try {
+      connection = getConnection();
+      selectStmt = connection.prepareStatement(sql);
+      selectStmt.setString(1, primCode);
+      results = selectStmt.executeQuery();
+      List<PacDonation> pacDonationList = new ArrayList<PacDonation>();
+      while(results.next()) {
+        pacDonationList.add(new PacDonation(
+                results.getString("Name"),
+                results.getString("Amount"),
+                results.getString("CommitteeID"),
+                results.getString("CatName")
+        ));
+      }
+      return pacDonationList;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if (connection != null) {
+        connection.close();
+      }
+      if (selectStmt != null) {
+        selectStmt.close();
+      }
+      if (results != null) {
+        results.close();
+      }
+    }
+  }
+
+  @Override
+  public List<PacDonationToCandidate> getPacDonationsToCandsByPac(String PACID) throws SQLException {
+    String sql = "SELECT CandsCRP16.FirstLastP AS CandName, SUM(PACsToCand16.amount) AS Amount, COUNT(*) AS NumDonations, Cmtes16.PACShort AS PacName, CandsCRP16.CID AS CID\n" +
+            "FROM PACsToCand16\n" +
+            "JOIN CandsCRP16 ON PACsToCand16.CID = CandsCRP16.CID\n" +
+            "JOIN Cmtes16 ON PACsToCand16.PACID = Cmtes16.CmteID\n" +
+            "WHERE PACsToCand16.PACID = ?\n" +
+            "GROUP BY PACsToCand16.CID\n" +
+            "ORDER BY Amount DESC;";
+    Connection connection = null;
+    PreparedStatement selectStmt = null;
+    ResultSet results = null;
+    try {
+      connection = getConnection();
+      selectStmt = connection.prepareStatement(sql);
+      selectStmt.setString(1, PACID);
+      results = selectStmt.executeQuery();
+      List<PacDonationToCandidate> pacDonationToCandidateList =
+              new ArrayList<PacDonationToCandidate>();
+      while(results.next()) {
+        pacDonationToCandidateList.add(new PacDonationToCandidate(
+                results.getString("CandName"),
+                results.getString("Amount"),
+                results.getString("NumDonations"),
+                results.getString("PacName"),
+                results.getString("CID")
+        ));
+      }
+      return pacDonationToCandidateList;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if (connection != null) {
+        connection.close();
+      }
+      if (selectStmt != null) {
+        selectStmt.close();
+      }
+      if (results != null) {
+        results.close();
+      }
+    }
   }
 }
