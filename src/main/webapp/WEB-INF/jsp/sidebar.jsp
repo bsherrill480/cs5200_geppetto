@@ -27,13 +27,13 @@
         <li>
             <ul class="sidebar-nav__sub-list">
                 <li>
-                    <a href="#">Average Spending By Industry</a>
+                    <a href="CampaignFinance/averageSpendingByIndustry">Average Spending By Industry</a>
                 </li>
                 <li>
-                    <a href="#">Top Paid Lobby Firms</a>
+                    <a href="Lobbying/topPaidLobbyFirms">Top Paid Lobby Firms</a>
                 </li>
                 <li>
-                    <a href="#">Organizations Paying for Lobbying</a>
+                    <a href="Lobby/orgsPayingForLobbying">Organizations Paying for Lobbying</a>
                 </li>
                 <li>
                     <a href="#">Top Lobbied Issues</a>
