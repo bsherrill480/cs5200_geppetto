@@ -53,7 +53,7 @@ import java.util.TreeMap;
 		@Override public List<LobbyingFirms> getTopPaidLobbyingFirms() throws SQLException {
 				List<LobbyingFirms> topPaidLobbyingFirmList = new ArrayList<LobbyingFirms>();
 				String topPaidLobbyingFirms =
-						"SELECT l.registrant AS Firm, l.amount FROM Lobbying WHERE l.isfirm LIKE '%y%' ORDER BY l.amount DESC;";
+						"SELECT l.registrant AS Firm, l.amount FROM Lobbying l WHERE l.isfirm LIKE '%y%' ORDER BY l.amount DESC;";
 				Connection connection = null;
 				PreparedStatement selectStmt = null;
 				ResultSet results = null;
