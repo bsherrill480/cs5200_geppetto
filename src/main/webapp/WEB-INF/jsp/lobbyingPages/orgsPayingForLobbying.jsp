@@ -31,18 +31,18 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>Firm</th>
-                            <th>Amount</th>
+                            <th>Industry Code</th>
+                            <th>Sum Donated</th>
                         </tr>
                         </thead>
                         <tbody>
                         <c:forEach items="${averageIndustryList}" var="IndustryList" >
                             <tr>
                                 <td>
-                                    <c:out value="${IndustryList.sumDonated}" />
+                                    <c:out value="${IndustryList.industryCode}"/>
                                 </td>
                                 <td>
-                                    <fmt:formatNumber value="${IndustryList.industryCode}"/>
+                                    <fmt:formatNumber value="${IndustryList.sumDonated}" />
                                 </td>
                             </tr>
                         </c:forEach>
