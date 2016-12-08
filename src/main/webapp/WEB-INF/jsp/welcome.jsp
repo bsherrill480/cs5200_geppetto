@@ -22,21 +22,22 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1>Welcome to Geppetto</h1>
+                    <h2>Origin</h2>
                     <p>
                         For those not familiar, Geppetto is a fictional character most famous for
                         creating Pinocchio. We thought this name fitting for our Web App, as similar
                         to Geppetto, our genuine curiosity drove us to create something amazing.
-                        <br>
+                    </p>
+                    <h2>What is Geppetto?</h2>
+					<p>
                         We started this project with a genuine interest in the US election process,
                         which, given the time of year and political climate of this past
                         Presidential election, made for interesting research and discourse. Although
                         this domain is extremely dynamic, we focused on the two areas that peeked
-                        our interestthe most: Campaign Finance and Lobbying. The data you'll find in
+                         our interest the most: Campaign Finance and Lobbying. The data you'll find in
                         the tool is representative of the information we thought most useful to the
                         average user.
-                        <br>
-                        Thank you for browsing and enjoy!
-                    </p>
+                   	</p>
                 </div>
             </div>
         </div>
