@@ -63,6 +63,7 @@ import java.util.TreeMap;
 						results = selectStmt.executeQuery();
 						while (results.next()) { LobbyingFirms lobbyingFirms = new LobbyingFirms(results.getString("Firm"),
 										results.getString("amount"));
+								topPaidLobbyingFirmList.add(lobbyingFirms);
 						}
 				} catch (SQLException e) {
 						e.printStackTrace();
