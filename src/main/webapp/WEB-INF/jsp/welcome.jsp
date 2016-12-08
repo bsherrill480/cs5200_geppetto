@@ -34,13 +34,10 @@
                         which, given the time of year and political climate of this past
                         Presidential election, made for interesting research and discourse. Although
                         this domain is extremely dynamic, we focused on the two areas that peeked
-                        our interestthe most: Campaign Finance and Lobbying. The data you'll find in
+                         our interest the most: Campaign Finance and Lobbying. The data you'll find in
                         the tool is representative of the information we thought most useful to the
                         average user.
                    	</p>
-                   	<p>
-                        Thank you for browsing and enjoy!
-                    </p>
                 </div>
             </div>
         </div>
