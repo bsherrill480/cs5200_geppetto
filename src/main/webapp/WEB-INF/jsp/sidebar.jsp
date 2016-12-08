@@ -27,22 +27,20 @@
         <li>
             <ul class="sidebar-nav__sub-list">
                 <li>
-                    <a href="CampaignFinance/averageSpendingByIndustry">Average Spending By Industry</a>
+                    <a href="/CampaignFinance/averageSpendingByIndustry">Average Spending By
+                        Industry</a>
                 </li>
                 <li>
-                    <a href="Lobbying/topPaidLobbyFirms">Top Paid Lobby Firms</a>
+                    <a href="/Lobbying/topPaidLobbyFirms">Top Paid Lobby Firms</a>
                 </li>
                 <li>
-                    <a href="Lobby/orgsPayingForLobbying">Organizations Paying for Lobbying</a>
+                    <a href="/Lobby/orgsPayingForLobbying">Organizations Paying for Lobbying</a>
                 </li>
                 <li>
                     <a href="/lobbying/TopLobbiedIssues">Top Lobbied Issues</a>
                 </li>
                 <li>
                     <a href="/lobbying/FormerCongressMemberLobbyists">Former Congress-Member Lobbyists</a>
-                </li>
-                <li>
-                    <a href="#">Top Lobbied Bills</a>
                 </li>
             </ul>
         </li>
@@ -69,13 +67,13 @@
                     <a href="/CampaignFinance/TopIndustryDonors">Top Industry Donors</a>
                 </li>
                 <li>
-                    <a href="#">Average Individual Donations</a>
+                    <a href="/CampaignFinance/IndividualDonations/AverageToCandidate">Average Individual Donations</a>
                 </li>
                 <li>
-                    <a href="#">Candidates By Donations</a>
+                    <a href="/CampaignFinance/IndividualDonations/DonationCounts">Candidates By Donations</a>
                 </li>
                 <li>
-                    <a href="#">Average Donation From Pacs</a>
+                    <a href="/CampaignFinance/PacDonations/AverageToCandidate">Average Donation From Pacs</a>
                 </li>
             </ul>
         </li>
