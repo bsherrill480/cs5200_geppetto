@@ -36,7 +36,6 @@
                         average user.
                         <br>
                         Thank you for browsing and enjoy!
-
                     </p>
                 </div>
             </div>
