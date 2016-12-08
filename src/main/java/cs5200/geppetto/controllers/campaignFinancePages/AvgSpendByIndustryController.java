@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +38,9 @@ public class AvgSpendByIndustryController {
 		@GetMapping("CampaignFinance/averageSpendingByIndustry")
 		public String welcome(Map<String, Object> model) throws SQLException {
 				List<Industry> averageIndustryList = lobbyingDao.getAverageByIndustry();
+//				List<Industry> averageIndustryList = new ArrayList<Industry>();
+//				Industry testvalue = new Industry("12312", "213123");
+//				averageIndustryList.add(testvalue);
 				model.put("averageIndustryList", averageIndustryList);
 				return "campaignFinancePages/averageSpendingByIndustry";
 		}

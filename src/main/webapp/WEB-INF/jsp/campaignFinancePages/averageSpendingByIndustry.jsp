@@ -38,10 +38,10 @@
                         <c:forEach items="${averageIndustryList}" var="averageDonations" >
                             <tr>
                                 <td>
-                                    <c:out value="${averageDonations.getOrg}" />
+                                    <c:out value="${averageDonations.org}" />
                                 </td>
                                 <td>
-                                    <fmt:formatNumber value="${averageDonations.getAmount}"/>
+                                    <fmt:formatNumber value="${averageDonations.amount}"/>
                                 </td>
                             </tr>
                         </c:forEach>

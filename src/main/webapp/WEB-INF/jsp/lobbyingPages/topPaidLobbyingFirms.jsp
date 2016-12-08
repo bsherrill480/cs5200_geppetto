@@ -37,10 +37,10 @@
                         <c:forEach items="${averageIndustryList}" var="IndustryList" >
                             <tr>
                                 <td>
-                                    <c:out value="${IndustryList.getSumDonated}" />
+                                    <c:out value="${IndustryList.firm}" />
                                 </td>
                                 <td>
-                                    <fmt:formatNumber value="${IndustryList.getIndustryCode}"/>
+                                    <fmt:formatNumber value="${IndustryList.amount}"/>
                                 </td>
                             </tr>
                         </c:forEach>

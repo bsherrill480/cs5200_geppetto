@@ -4,27 +4,28 @@ package cs5200.geppetto.model.campaignFinance;
  * Created by andrewdickens on 12/7/16.
  */
 public class OrganizationsPaying {
-		String org;
-		String amount;
+		String sumDonated;
+		String industryCode;
 
-		public OrganizationsPaying(String org, String amount) {
-				this.org = org;
-				this.amount = amount;
+		public OrganizationsPaying(String sumDonated, String industryCode) {
+				this.sumDonated = sumDonated;
+				this.industryCode = industryCode;
 		}
 
-		public String getOrg() {
-				return org;
+		public String getSumDonated() {
+				return sumDonated;
 		}
 
-		public void setOrg(String org) {
-				this.org = org;
+		public void setSumDonated(String sumDonated) {
+				this.sumDonated = sumDonated;
 		}
 
-		public String getAmount() {
-				return amount;
+		public String getIndustryCode() {
+				return industryCode;
 		}
 
-		public void setAmount(String amount) {
-				this.amount = amount;
+		public void setIndustryCode(String industryCode) {
+				this.industryCode = industryCode;
 		}
+
 }
