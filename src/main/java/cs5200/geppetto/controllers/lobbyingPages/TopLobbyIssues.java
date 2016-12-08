@@ -25,19 +25,12 @@ public class TopLobbyIssues {
       @RequestParam(defaultValue = "") String state) throws SQLException {
     String tableTitleBy;
     List<TopLobbyiedIssues> topLobbyIssuesList;
-    if (!city.isEmpty()) {
-      tableTitleBy = "In" + city;
-      topLobbyIssuesList = this.lobbyIssuesDao.getTopByCity(city);
-    } else if (!state.isEmpty()) {
-      tableTitleBy = "In" + city;
-      topLobbyIssuesList = this.lobbyIssuesDao.getTopByState(state);
-    } else {
-      tableTitleBy = "";
-      topLobbyIssuesList = null;
-      model.put("tableTitleBy", tableTitleBy);
-      model.put("topLobbyIssuesList", topLobbyIssuesList);
+    tableTitleBy = "";
+    topLobbyIssuesList = this.lobbyIssuesDao.getTop();
+    model.put("tableTitleBy", tableTitleBy);
+    model.put("topLobbyIssuesList", topLobbyIssuesList);
 
-    }
+    // }
     return "lobbyingPages/topLobbiedIssues";
   }
 }

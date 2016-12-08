@@ -20,7 +20,7 @@
                     <p>
                         What kind of issues would be most lobbyied? Let us find out.
                     </p>
-                    <h4>Filter by:</h4>
+                    <!-- <h4>Filter by:</h4>
                     <div class="row horizontal-inputs-choice">
                         <form class="col-sm-4 col-sm-offset-1">
                             <label>State</label>
@@ -47,7 +47,7 @@
                             </div>
                             <input type="hidden" value="" name="state">
                         </form>
-                    </div> -->
+                    </div>  -->
                     <h3>Top Lobbyied Issues <c:out value="${tableTitleBy}"></c:out></h3>
                     <table class="table table-striped">
                         <thead>
@@ -66,10 +66,9 @@
 											var="lobbyissue">
 											<tr>
 												<td><c:out value="${lobbyissue.getIssue()}" /></td>
-											</tr>
-											<tr>
 												<td><c:out value="${lobbyissue.getCount()}" /></td>
 											</tr>
+										
 										</c:forEach>
 									</c:when>
 								</c:choose>

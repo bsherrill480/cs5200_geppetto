@@ -141,7 +141,7 @@ public class LobbyIssuesDao extends MyJdbcDaoSupport implements LobbyIssuesInter
   @Override
   public List<TopLobbyiedIssues> getTop() throws SQLException {
     String sql = "SELECT lobbyissue.issue AS Issue, " + "COUNT(Lobbying.client) AS Clients_CNT\n"
-        + "FROM lobbyissue\n" + "LEFT JOIN Lobbying\n" + "ON lobbyissues.uniqID = Lobbying.uniqid\n"
+        + "FROM lobbyissue\n" + "LEFT JOIN Lobbying\n" + "ON lobbyissue.uniqID = Lobbying.uniqid\n"
         + "GROUP BY lobbyissue.issue\n" + "ORDER BY Clients_CNT DESC;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
