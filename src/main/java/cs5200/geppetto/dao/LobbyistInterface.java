@@ -1,5 +1,7 @@
 package cs5200.geppetto.dao;
 
+import java.util.List;
+
 import cs5200.geppetto.model.Lobbyist;
 
 public interface LobbyistInterface {
@@ -12,4 +14,6 @@ public interface LobbyistInterface {
   Lobbyist update(Lobbyist lobbyist);
 
   Lobbyist delete(Lobbyist lobbyist);
+
+  List<Lobbyist> getFormerCongressMember();
 }

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -17,7 +19,6 @@ public class LobbyistDao extends MyJdbcDaoSupport implements LobbyistInterface {
   protected LobbyistDao() {
 
   }
-
 
   @Override
   public Lobbyist create(Lobbyist lobbyist) {
@@ -174,6 +175,50 @@ public class LobbyistDao extends MyJdbcDaoSupport implements LobbyistInterface {
       deleteStmt.executeUpdate();
       deleteStmt.close();
       return lobbyist;
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    } finally {
+      if (connection != null) {
+        try {
+          connection.close();
+        } catch (SQLException e) {
+        }
+      }
+    }
+  }
+
+
+
+  @Override
+  public List<Lobbyist> getFormerCongressMember() {
+    String selectLobbyist =
+        "SELECT uniqID,lobbyist_raw,lobbyist,lobbyist_id,year,`Official Position`,cid,formercongmem "
+            + "FROM Lobbyists WHERE formercongmem=?";
+    Connection connection = null;
+    PreparedStatement selectStmt = null;
+    ResultSet results = null;
+    try {
+      connection = getConnection();
+      selectStmt = connection.prepareStatement(selectLobbyist);
+      selectStmt.setString(1, "y");
+      results = selectStmt.executeQuery();
+      List<Lobbyist> formerCongressMemberLobbyist = new ArrayList<Lobbyist>();
+      while (results.next()) {
+        String uniqId = results.getString("uniqID");
+        String resultUniqId = results.getString("lobbyist_id");
+        String lobbyistRaw = results.getString("lobbyist_raw");
+        String lobbyist = results.getString("lobbyist");
+        String year = results.getString("year");
+        String officialPosition = results.getString("Official Position");
+        String cid = results.getString("cid");
+        String formercongmen = results.getString("formercongmem");
+        Lobbyist lobbyistObj = new Lobbyist(uniqId, lobbyistRaw, lobbyist, resultUniqId, year,
+            officialPosition, cid, formercongmen);
+        formerCongressMemberLobbyist.add(lobbyistObj);
+      }
+      results.close();
+      selectStmt.close();
+      return formerCongressMemberLobbyist;
     } catch (SQLException e) {
       throw new RuntimeException(e);
     } finally {
