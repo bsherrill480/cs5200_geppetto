@@ -23,15 +23,23 @@
                         Lobbying
                     </h1>
                     <p>
-                        Describe lobbying here.
+                        What is Lobbying?
                     </p>
                     <p>
-                        Talk at a high level about why it's important that our project talks
-                        about it
+                        Lobbying describes paid activities to influence the actions, policies or decisions of officials in government.
                     </p>
                     <p>
-                        Give some samples of our lobby pages?
+                        Why Lobbying is Important?
                     </p>
+                    <p>
+                        The practice of lobbying offers an opportunity for the resolution of disputes among often dissimilar and challenging points of view. Lobbying also disseminates information, analysis, and opinions to legislators and government leaders. This allows them to arrive at an informed and balanced decision.
+                    </p>
+
+                    <p>
+                        Why Our Project Covers Lobbying Data?
+                        Our goal is to make the Lobbying data transparent and easy to read for people who are interested in politics, as well as providing useable lobbying data insights to what are influencing government policy.
+                    </p>
+
                 </div>
             </div>
         </div>
