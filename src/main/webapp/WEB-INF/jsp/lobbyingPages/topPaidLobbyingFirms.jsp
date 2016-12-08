@@ -26,34 +26,26 @@
                     <p>
                         Lobbying can be big money!  Use this query to explore the top paid Lobbying Firms in America.
                     </p>
-                    <h4>Filter by:</h4>
-                    <div class="row horizontal-inputs-choice">
-                        <form class="col-sm-4 col-sm-offset-1">
-                            <label>State</label>
-                            <div class="input-group">
-                                <input class="form-control" name="state" maxlength="2">
-                                <span class="input-group-btn">
-                                    <button type=submit class="btn btn-default" type="button">
-                                        Go
-                                    </button>
-                                </span>
-                            </div>
-                            <input type="hidden" value="" name="city">
-                        </form>
-                        <div class="col-sm-2 horizontal-inputs-choice__or">OR</div>
-                        <form class="col-sm-4">
-                            <label>City</label>
-                            <div class="input-group">
-                                <input class="form-control" name="city">
-                                <span class="input-group-btn">
-                                    <button type=submit class="btn btn-default" type="button">
-                                        Go
-                                    </button>
-                                </span>
-                            </div>
-                            <input type="hidden" value="" name="state">
-                        </form>
-                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Sum Donated</th>
+                            <th>Industry Code</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${averageIndustryList}" var="IndustryList" >
+                            <tr>
+                                <td>
+                                    <c:out value="${IndustryList.getSumDonated}" />
+                                </td>
+                                <td>
+                                    <fmt:formatNumber value="${IndustryList.getIndustryCode}"/>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

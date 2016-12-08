@@ -27,21 +27,26 @@
                         Industries will donate differently, based on a variety of factors. Use this
                         query to explore the potential donation trends between varying industries
                     </p>
-                    <h4>Filter by:</h4>
-                    <div class="row horizontal-inputs-choice">
-                        <form class="col-sm-4 col-sm-offset-1">
-                            <label>Industry</label>
-                            <div class="input-group">
-                                <input class="form-control" name="state" maxlength="2">
-                                <span class="input-group-btn">
-                                    <button type=submit class="btn btn-default" type="button">
-                                        Go
-                                    </button>
-                                </span>
-                            </div>
-                            <input type="hidden" value="" name="city">
-                        </form>
-                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Org</th>
+                            <th>Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${averageIndustryList}" var="averageDonations" >
+                            <tr>
+                                <td>
+                                    <c:out value="${averageDonations.getOrg}" />
+                                </td>
+                                <td>
+                                    <fmt:formatNumber value="${averageDonations.getAmount}"/>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
