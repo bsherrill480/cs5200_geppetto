@@ -26,6 +26,4 @@ public class FormerCongressMemberLobbyists {
 
     return "lobbyingPages/formerCongressMemberLobbyists";
   }
-
-
 }

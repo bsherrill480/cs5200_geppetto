@@ -171,17 +171,5 @@ public class LobbyIssuesDao extends MyJdbcDaoSupport implements LobbyIssuesInter
       }
     }
   }
-
-  @Override
-  public List<TopLobbyiedIssues> getTopByCity(String city) {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  @Override
-  public List<TopLobbyiedIssues> getTopByState(String state) {
-    // TODO Auto-generated method stub
-    return null;
-  }
 }
 

@@ -16,8 +16,4 @@ public interface LobbyIssuesInterface {
   LobbyIssues delete(LobbyIssues lobbyissue);
 
   List<TopLobbyiedIssues> getTop() throws SQLException;
-
-  List<TopLobbyiedIssues> getTopByCity(String city);
-
-  List<TopLobbyiedIssues> getTopByState(String state);
 }

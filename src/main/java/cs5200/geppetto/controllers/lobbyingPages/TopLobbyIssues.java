@@ -29,8 +29,6 @@ public class TopLobbyIssues {
     topLobbyIssuesList = this.lobbyIssuesDao.getTop();
     model.put("tableTitleBy", tableTitleBy);
     model.put("topLobbyIssuesList", topLobbyIssuesList);
-
-    // }
     return "lobbyingPages/topLobbiedIssues";
   }
 }

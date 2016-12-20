@@ -85,7 +85,6 @@ public class LobbyingBillsController {
   }
 
   @PostMapping(LobbyingBillsController.baseUrl + "/create")
-  // public String doCreate(Map<String, Object> model,
   public String doCreate(HttpServletRequest request, @RequestParam(value = "B_ID") String B_ID,
       @RequestParam(value = "si_id") Integer si_id, @RequestParam(value = "CongNo") String CongNo,
       @RequestParam(value = "Bill_Name") String bill_name) {
@@ -93,5 +92,4 @@ public class LobbyingBillsController {
         this.lobbyBillsDao.create(new LobbyingBills(B_ID, si_id, CongNo, bill_name));
     return "redirect:" + LobbyingBillsController.baseUrl;
   }
-
 }
