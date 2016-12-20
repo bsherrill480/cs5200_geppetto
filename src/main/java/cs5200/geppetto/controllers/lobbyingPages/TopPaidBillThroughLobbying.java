@@ -24,6 +24,6 @@ public class TopPaidBillThroughLobbying {
 	    List<TopLobbyiedBills> toplobbybills = lobbybillsDao.getTop();
 	    model.put("toplobbybills", toplobbybills);
 
-	    return "lobbyingPages/toplobbybills";
+	    return "lobbyingPages/topPaidLobbyBills";
 	  }
 }
