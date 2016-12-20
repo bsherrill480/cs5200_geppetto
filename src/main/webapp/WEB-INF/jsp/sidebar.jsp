@@ -42,6 +42,9 @@
                 <li>
                     <a href="/lobbying/FormerCongressMemberLobbyists">Former Congress-Member Lobbyists</a>
                 </li>
+                <li>
+                    <a href="/lobbying/TopLobbyingBills">Top Spending Lobbying Bills</a>
+                </li>
             </ul>
         </li>
         <li>
