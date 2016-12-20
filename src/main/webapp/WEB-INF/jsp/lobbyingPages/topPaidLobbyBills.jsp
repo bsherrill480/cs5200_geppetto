@@ -40,13 +40,13 @@
                        <c:choose>
                        <c:when test="${toplobbybills.size() != null}">
                        <c:forEach items="${toplobbybills}"
-							var="lobbyissue">
+							var="toplobbybill">
 							<tr>
-								<td><c:out value="${toplobbybills.getB_ID()}" /></td>
-								<td><c:out value="${toplobbybills.getBill_Name()}" /></td>
-								<td><c:out value="${toplobbybills.getIssueID()}" /></td>
-								<td><c:out value="${toplobbybills.getIssue()}" /></td>
-								<td><c:out value="${toplobbybills.getAmount()}" /></td>
+								<td><c:out value="${toplobbybill.getB_ID()}" /></td>
+								<td><c:out value="${toplobbybill.getBill_Name()}" /></td>
+								<td><c:out value="${toplobbybill.getIssueID()}" /></td>
+								<td><c:out value="${toplobbybill.getIssue()}" /></td>
+								<td><c:out value="${toplobbybill.getAmount()}" /></td>
 							</tr>
 							</c:forEach>
 							</c:when>
